@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Liste des produits</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/secured/templates/layoutAdmin.xhtml">
+		<ui:define name="ContentAdmin">
+		
+		<h:form id="form">
+				<p:growl id="messages" />
+    <p:dataGrid var="pr" value="#{prMB.listproduct}" columns="3" paginator="true" rowsPerPageTemplate="6,12,18"
+                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                gridIcon="pi pi-th-large" listIcon="pi pi-bars" style="width:80%; margin: auto; margin-top:20px;">
+ 
+        <f:facet name="header" style="color:white;">
+           Liste des Produits
+        </f:facet>
+ 
+                    <p:panel header="#REF.000#{pr.id}">
+                      <h:panelGrid columns="1" style="width:100%; text-align:center;">
+                      <h:graphicImage value="#{pr.image}"/> 
+                       <h:outputText value="#{pr.designation}" />
+                      <h:panelGrid columns="3" style="width:100%">
+                     <p:commandButton icon="btnDelete" styleClass="iconOnlyButton" action="#{prMB.supprimerProduit}" update="@form">
+                        <f:setPropertyActionListener value="#{pr}" target="#{prMB.produit}" />
+                    </p:commandButton>
+                     <p:commandButton icon="btnModify" styleClass="iconOnlyButton" action="#{prMB.modifierLien}">
+                        <f:setPropertyActionListener value="#{pr}" target="#{prMB.produit}" />
+                    </p:commandButton>
+                    <p:commandButton  icon="btnView" styleClass="iconOnlyButton" update=":form:prDetail" oncomplete="PF('prDialog').show()">
+                        <f:setPropertyActionListener value="#{pr}" target="#{prMB.produitselected}" />
+                    </p:commandButton>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+        </p:dataGrid>
+
+ 
+    <p:dialog header="Produit Info" widgetVar="prDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="prDetail" style="text-align:center;">
+        	<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
+   			<h:graphicImage value="#{prMB.produitselected.image}"/> 
+            <p:panelGrid  columns="2" rendered="#{not empty prMB.produitselected}" cellspacing="0px" cellpadding="0px" style="width:100%;" columnClasses="label,value">
+
+ 
+            <h:outputText value="Référence:" />
+            <h:outputText value="#{prMB.produitselected.id}" />
+            <h:outputText value="Nom" />
+            <h:outputText value="#{prMB.produitselected.designation}" />
+              <h:outputText value="Categorie:" />
+            <h:outputText value="#{prMB.produitselected.categorie.nom}"/>
+            </p:panelGrid>
+            <h:outputText value="Description:" />
+            <h:outputText value="#{prMB.produitselected.descre}"/>
+             <p:panelGrid  columns="2" rendered="#{not empty prMB.produitselected}" cellspacing="0px" cellpadding="0px" style="width:100%;" columnClasses="label,value">
+            <h:outputText value="Prix" />
+            <h:outputText value="#{prMB.produitselected.prix}" />
+            <h:outputText value="Quantite" />
+            <h:outputText value="#{prMB.produitselected.quantite}" />
+            </p:panelGrid>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

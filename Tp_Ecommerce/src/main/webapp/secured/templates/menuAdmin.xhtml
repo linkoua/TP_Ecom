@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>menu administrateur</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:menuitem value="Accueil" icon="fa fa-home" url="espace.xhtml" />
+			<p:submenu label="Categorie" icon="fa fa-steam-square">
+				<p:menuitem value="Nouveau" icon="fa fa-plus"
+					url="addCategorie.xhtml" />
+				<p:menuitem value="Modifier" url="updateCategorie.xhtml" />
+				<p:separator />
+				<p:menuitem value="Afficher tout" icon="fa fa-th-list"
+					url="listCategories.xhtml" />
+				<p:menuitem value="Rechercher" icon="fa fa-search"
+					url="resultCategorie.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="Article" icon="fa fa-gamepad">
+				<p:menuitem value="Nouveau" icon="fa fa-plus" url="addproduct.xhtml" />
+				<p:menuitem value="Modifier" url="updateproduct.xhtml" />
+				<p:separator />
+				<p:menuitem value="Afficher tout" icon="fa fa-th-list"
+					url="listproduct.xhtml" />
+				<p:menuitem value="Rechercher" icon="fa fa-search"
+					url="resultproduct.xhtml" />
+			</p:submenu>
+
+			<f:facet name="options">
+				<p:commandButton action="#{adMB.logout}" value="Logout"
+					icon="fa fa-sign-out" ajax="false" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+</h:body>
+</html>

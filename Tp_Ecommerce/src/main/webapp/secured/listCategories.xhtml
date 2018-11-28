@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Toutes les catégories</title>
+</h:head>
+<h:body>
+	<ui:composition template="/secured/templates/layoutAdmin.xhtml">
+		<ui:define name="ContentAdmin">
+			<br />
+			<h:form id="form">
+				<p:dataTable var="ca" value="#{caMB.listCa}" paginator="true"
+					rows="10" resizableColumns="true" style="width: 90%; margin : auto"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" id="caTable" lazy="true">
+
+					<p:column style="width: 120px" headerText="Id" sortBy="#{ca.id}"
+						filterBy="#{ca.id}" filterStyle="width: 95%">
+						<h:outputText value="#REF.8000#{ca.id}" />
+					</p:column>
+					<p:column style="width: 240px" headerText="Nom" sortBy="#{ca.nom}"
+						filterBy="#{ca.nom}" filterStyle="width: 95%">
+						<h:outputText value="#{ca.nom}" />
+					</p:column>
+					<p:column headerText="Description" sortBy="#{ca.descre}"
+						filterBy="#{ca.descre}" filterStyle="width: 95%">
+						<h:outputText value="#{ca.descre}" />
+					</p:column>
+					<p:column style="width: 110px" headerText="Photo">
+						<h:graphicImage value="#{ca.image}"
+							style="width: 100px; heigth: 100px" />
+					</p:column>
+					<p:column style="width: 130px">
+						<p:commandButton icon="btnDelete" title="Supprimer catégorie"
+							styleClass="iconOnlyButton" action="#{caMB.deleteCategorie}">
+							<f:setPropertyActionListener value="#{ca}"
+								target="#{caMB.categorie}" />
+							<p:confirm header="Confirmer la suppression"
+								message="Supprimer la catégorie #{caMB.categorie.nom}: Êtes-vous sûr?"
+								icon="fa fa-warning" />
+						</p:commandButton>
+						<p:confirmDialog global="true">
+							<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
+								type="button" icon="fa fa-check" />
+							<p:commandButton value="Non" styleClass="ui-confirmdialog-no"
+								type="button" icon="fa fa-times" />
+						</p:confirmDialog>
+						<p:commandButton title="Modifier catégorie" icon="btnModify"
+							styleClass="iconOnlyButton" action="#{caMB.linkUpdate}"
+							ajax="false">
+							<f:setPropertyActionListener value="#{ca}"
+								target="#{caMB.categorie}" />
+						</p:commandButton>
+						<p:commandButton icon="btnView" styleClass="iconOnlyButton"
+							update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<f:setPropertyActionListener value="#{ca}"
+								target="#{caMB.categorie}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="caDetail" style="text-align:center;">
+						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
+							<h:graphicImage value="#{caMB.categorie.image}" />
+							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
+								style="width:100%;" columnClasses="label,value">
+
+								<h:outputText value="Référence:" />
+								<h:outputText value="#{caMB.categorie.id}" />
+								<h:outputText value="Nom" />
+								<h:outputText value="#{caMB.categorie.nom}" />
+							</p:panelGrid>
+							<h:outputText value="Description:" />
+							<h:outputText value="#{caMB.categorie.descre}" />
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
