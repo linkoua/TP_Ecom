@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Modifier Produit</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/secured/templates/layoutAdmin.xhtml">
+		<ui:define name="ContentAdmin">
+
+			<h:form enctype="multipart/form-data">
+				<h:form id="form" enctype="multipart/form-data">
+					<div class="contentdiv">
+						<p:growl id="messages" showDetail="true" />
+						<h1 style="color: black; text-align: center">Rechercher un
+							produit:</h1>
+						<h:panelGrid columns="1" style="margin:auto; width:500px">
+							<h:outputText value="Rechercher par :" />
+							<p:selectOneButton valueChangeListener="#{vspMB.changeSearch}">
+								<f:selectItem itemLabel="Id Produit" itemValue="ID" />
+								<f:selectItem itemLabel="Nom Categorie" itemValue="Nom" />
+								<f:selectItem itemLabel="Mots clés" itemValue="MotCle" />
+								<f:ajax event="change" render="@form" />
+							</p:selectOneButton>
+
+							<h:panelGrid columns="2" rendered="#{vspMB.indiceSearchId}"
+								style="margin:auto; text-align:center;">
+								<p:inputNumber label="Recherche id" decimalPlaces="0"
+									placeholder="Entrer un id" value="#{vspMB.produit.id}" />
+								<p:commandButton id="searchId" value="Rechercher"
+									icon="fa fa-search" action="#{vspMB.searchById}" update="form" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" rendered="#{vspMB.indiceSearchCat}"
+								style="margin:auto; text-align:center;">
+								<p:inputText label="Recherche par Categorie(ID)"
+									placeholder="Entrer l'ID de la categorie"
+									value="#{vspMB.produit.categorie.id}" />
+								<p:commandButton id="searchCategorie" value="Rechercher"
+									icon="fa fa-search" action="#{vspMB.searchByCategorie}"
+									update="form" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" rendered="#{vspMB.indiceSearchMotCle}"
+								style="margin:auto; text-align:center;">
+								<p:inputText label="Recherche mots clés"
+									placeholder="Entrer mots clés" value="#{vspMB.motCle}" />
+								<p:commandButton id="searchMotCle" value="Rechercher"
+									icon="fa fa-search" action="#{vspMB.searchByMotCle}"
+									update="form" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</div>
+
+					<p:spacer />
+
+					<p:dataScroller value="#{vspMB.produit}" var="pr" chunkSize="10"
+						rendered="#{vspMB.indiceTableId}">
+						<f:facet name="header">
+           				Resultats de la recherche par ID
+        			</f:facet>
+
+						<h:panelGrid columns="3" style="width:100%"
+							columnClasses="logo,detail,logo">
+							<h:graphicImage value="#{pr.image}"
+								style="width: 100px; heigth: 100px" />
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Référence:" />
+									<h:outputText value="#REF.0000#{pr.id}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Nom:" />
+									<h:outputText value="#{pr.designation}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Description:" />
+									<h:outputText value="#{pr.descre}" style="font-weight: bold" />
+
+									<h:outputText value="Categorie:" />
+									<h:outputText value="#{pr.categorie}" style="font-weight: bold" />
+
+									<h:outputText value="Prix:" />
+									<h:outputText value="#{pr.prix}" style="font-weight: bold" />
+
+									<h:outputText value="Quantite:" />
+									<h:outputText value="#{pr.quantite}" style="font-weight: bold" />
+								</h:panelGrid>
+							</p:outputPanel>
+						</h:panelGrid>
+					</p:dataScroller>
+
+					<p:dataScroller value="#{vspMB.resultListPr}" var="pr"
+						chunkSize="10" rendered="#{vspMB.indiceTableNom}">
+						<f:facet name="header">
+           					Resultats de la recherche par Categorie
+        				</f:facet>
+
+						<f:facet name="loader">
+							<p:commandButton type="button" value="Plus"
+								icon="fa fa-chevron-circle-down" />
+						</f:facet>
+
+						<h:panelGrid columns="3" style="width:100%"
+							columnClasses="logo,detail,logo">
+							<h:graphicImage value="#{pr.image}"
+								style="width: 100px; heigth: 100px" />
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Référence:" />
+									<h:outputText value="#REF.0000#{pr.id}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Nom:" />
+									<h:outputText value="#{pr.designation}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Description:" />
+									<h:outputText value="#{pr.descre}" style="font-weight: bold" />
+
+									<h:outputText value="Categorie:" />
+									<h:outputText value="#{pr.categorie}" style="font-weight: bold" />
+
+									<h:outputText value="Prix:" />
+									<h:outputText value="#{pr.prix}" style="font-weight: bold" />
+
+									<h:outputText value="Quantite:" />
+									<h:outputText value="#{pr.quantite}" style="font-weight: bold" />
+								</h:panelGrid>
+							</p:outputPanel>
+
+						</h:panelGrid>
+						<p:separator />
+					</p:dataScroller>
+
+					<p:dataScroller value="#{vspMB.resultSetPr}" var="pr"
+						chunkSize="10" rendered="#{vspMB.indiceTableMotCle}">
+						<f:facet name="header">
+           					Resultats de la recherche par mots clés
+        				</f:facet>
+
+						<f:facet name="loader">
+							<p:commandButton type="button" value="Plus"
+								icon="fa fa-chevron-circle-down" />
+						</f:facet>
+
+						<h:panelGrid columns="3" style="width:100%"
+							columnClasses="logo,detail,logo">
+							<h:graphicImage value="#{pr.image}"
+								style="width: 100px; heigth: 100px" />
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Référence:" />
+									<h:outputText value="#REF.0000#{pr.id}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Nom:" />
+									<h:outputText value="#{pr.designation}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Description:" />
+									<h:outputText value="#{pr.descre}" style="font-weight: bold" />
+
+									<h:outputText value="Categorie:" />
+									<h:outputText value="#{pr.categorie}" style="font-weight: bold" />
+
+									<h:outputText value="Prix:" />
+									<h:outputText value="#{pr.prix}" style="font-weight: bold" />
+
+									<h:outputText value="Quantite:" />
+									<h:outputText value="#{pr.quantite}" style="font-weight: bold" />
+								</h:panelGrid>
+							</p:outputPanel>
+	
+						</h:panelGrid>
+						<p:separator />
+					</p:dataScroller>
+
+
+				</h:form>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

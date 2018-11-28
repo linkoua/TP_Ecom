@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>le layout administrateur</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div class="wrapper">
+
+		<div class="header">
+			<ui:insert name="headerAdmin">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/secured/templates/headerAdmin.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+		<div class="menu">
+			<ui:insert name="menuAdmin">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/secured/templates/menuAdmin.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+		<div class="content">
+			<ui:insert name="ContentAdmin">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/secured/templates/corpsAdmin.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+	</div>
+	<div class="footer">
+		<ui:insert styleClass="footer" name="FooterAdmin">
+			<!-- inclure concretement header avec include -->
+			<ui:include src="/secured/templates/footerAdmin.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+</h:body>
+</html>

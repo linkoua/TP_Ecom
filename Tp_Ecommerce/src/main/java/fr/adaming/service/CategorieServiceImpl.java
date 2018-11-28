@@ -3,18 +3,13 @@ package fr.adaming.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
-
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Categorie;
 
-@Stateful
 public class CategorieServiceImpl implements ICategorieService {
 
 	// Transformation de l'associationUML en JAVA
-	@EJB
 	private ICategorieDao caDao;
 
 	@Override

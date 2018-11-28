@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Modifier categorie</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/secured/templates/layoutAdmin.xhtml">
+		<ui:define name="ContentAdmin">
+
+			<div class="contentdiv">
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+					<h1 style="color: black; text-align: center">Modifier une
+						catégorie:</h1>
+					<h:panelGrid columns="1" style="margin:auto; width:400px">
+						<h:outputText value="Référence: *" />
+						<p:inputText value="#{caMB.categorie.id}" readonly="false" />
+						<h:outputText value="Nom: *" />
+						<p:inputText value="#{caMB.categorie.nom}" required="true" />
+						<h:outputText value="Description: " />
+						<p:inputTextarea label="Description" rows="5" cols="70"
+							counter="display" maxlength="250"
+							counterTemplate="{0} caractères restant" autoResize="false"
+							value="#{caMB.categorie.descre}" required="true" />
+						<h:outputText id="display" />
+
+						<h:outputText value="Voulez- vous modifier la photo?" />
+						<p:selectBooleanCheckbox value="#{caMB.checkbox}">
+							<f:ajax event="change" render="ajoutphoto" />
+						</p:selectBooleanCheckbox>
+
+						<h:panelGrid id="ajoutphoto" columns="1"
+							style="margin:auto; width:400px">
+							<h:outputText value="Upload Photo: *" rendered="#{caMB.checkbox}" />
+							<p:fileUpload value="#{caMB.file}" mode="simple"
+								skinSimple="true" rendered="#{caMB.checkbox}" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="margin:auto; text-align:center;">
+							<p:commandButton styleClass="buttonUp" value="Modifier Catégorie"
+								ajax="false" action="#{caMB.updateCategorie}" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+			</div>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

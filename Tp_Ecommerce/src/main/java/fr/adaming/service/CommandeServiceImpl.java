@@ -3,18 +3,13 @@ package fr.adaming.service;
 import java.io.File;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
-
 import fr.adaming.dao.ICommandeDAO;
 import fr.adaming.modele.Client;
 import fr.adaming.modele.Commande;
 import fr.adaming.util.CommandePDF;
 import fr.adaming.util.Mail;
 
-@Stateful
 public class CommandeServiceImpl implements ICommandeService{
-	@EJB
 	private ICommandeDAO coDAO;
 	
 	@Override

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Menu</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+
+	<ui:composition>
+		<h:form>
+
+			<p:dock position="top">
+				<p:menuitem value="Catégorie" icon="/resources/images/category.png"
+					action="#{caMB.showCategories}" />
+				<p:menuitem value="Produits" icon="/resources/images/product.png"
+					url="productlist.xhtml" />
+				<p:menuitem value="Chercher" icon="/resources/images/search.png"
+					url="recherche.xhtml" />
+				<p:menuitem value="Panier" icon="/resources/images/cart.png"
+					url="http://www.primefaces.org" />
+				<p:menuitem value="Login" icon="/resources/images/login.png"
+					url="login.xhtml" />
+			</p:dock>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -26,7 +25,6 @@ import fr.adaming.service.ICategorieService;
 public class CategorieManagedBean implements Serializable {
 
 	// Transformation de l'association UML en JAVA
-	@EJB
 	private ICategorieService caService;
 
 	// Attribut du managed bean

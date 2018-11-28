@@ -2,7 +2,6 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,7 +12,6 @@ import fr.adaming.modele.Client;
 import fr.adaming.modele.Commande;
 import fr.adaming.modele.Produit;
 
-@Stateless
 public class CommandeDAOImpl implements ICommandeDAO{
 	@PersistenceContext(unitName = "pu_com")
 	private EntityManager em;

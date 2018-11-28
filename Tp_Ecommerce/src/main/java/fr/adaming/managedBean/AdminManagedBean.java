@@ -1,7 +1,6 @@
 package fr.adaming.managedBean;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,18 +16,15 @@ import fr.adaming.service.IProduitService;
 @SessionScoped
 public class AdminManagedBean {
 	// Appel des services admin
-	@EJB
 	private IAdminService adService;
 	private Administrateur administrateur;
 	// Utilisation d'un boolean pour le filtre login
 	private boolean logIn;
 
 	// Appel des services Categorie
-	@EJB
 	private ICategorieService caService;
 
 	// Appel des services Produit
-	@EJB
 	private IProduitService prService;
 
 	// Constructeur vide

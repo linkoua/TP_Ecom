@@ -2,12 +2,9 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Local;
-
 import fr.adaming.modele.Client;
 import fr.adaming.modele.Commande;
 
-@Local
 public interface ICommandeDAO {
 	public Commande addCommande(Commande c);
 	public int deleteCommande(Commande c);

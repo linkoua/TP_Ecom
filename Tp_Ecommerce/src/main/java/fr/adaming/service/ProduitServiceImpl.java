@@ -3,16 +3,10 @@ package fr.adaming.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
-
 import fr.adaming.dao.IProduitDAO;
-import fr.adaming.modele.Categorie;
 import fr.adaming.modele.Produit;
 
-@Stateful
-public class ProduitServiceImpl implements IProduitService{
-	@EJB
+public class ProduitServiceImpl implements IProduitService {
 	private IProduitDAO prDAO;
 
 	@Override
@@ -37,7 +31,7 @@ public class ProduitServiceImpl implements IProduitService{
 
 	@Override
 	public List<Produit> getAllProduit() {
-	 	return prDAO.getAllProduit();
+		return prDAO.getAllProduit();
 	}
 
 	@Override

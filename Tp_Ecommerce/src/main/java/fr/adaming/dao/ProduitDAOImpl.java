@@ -3,7 +3,6 @@ package fr.adaming.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -12,7 +11,6 @@ import org.apache.commons.codec.binary.Base64;
 
 import fr.adaming.modele.Produit;
 
-@Stateless
 public class ProduitDAOImpl implements IProduitDAO {
 	@PersistenceContext(unitName = "pu_com")
 	private EntityManager em;

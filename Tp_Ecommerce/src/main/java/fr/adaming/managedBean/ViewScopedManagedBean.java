@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -58,9 +57,7 @@ public class ViewScopedManagedBean implements Serializable {
 	private boolean indicePrMotCle;
 
 	// Transformation de l'association UML
-	@EJB
 	private ICategorieService caService;
-	@EJB
 	private IProduitService prService;
 
 	// Builder

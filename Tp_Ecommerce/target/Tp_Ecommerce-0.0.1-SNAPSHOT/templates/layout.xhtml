@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>le layout basique</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div class="wrapper">
+
+		<div class="header">
+			<ui:insert name="header">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/templates/header.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+		<div class="menu">
+			<ui:insert name="menu">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/templates/menu.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+		<div class="content">
+			<ui:insert name="Content">
+				<!-- inclure concretement header avec include -->
+				<ui:include src="/templates/corps.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+	</div>
+	<div class="footer">
+		<ui:insert styleClass="footer" name="Footer">
+			<!-- inclure concretement header avec include -->
+			<ui:include src="/templates/footer.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+</h:body>
+</html>

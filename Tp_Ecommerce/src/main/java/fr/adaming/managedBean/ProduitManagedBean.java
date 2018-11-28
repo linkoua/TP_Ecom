@@ -1,13 +1,8 @@
 package fr.adaming.managedBean;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,11 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Categorie;
 import fr.adaming.modele.LigneCommande;
 import fr.adaming.modele.Panier;
@@ -32,9 +24,7 @@ import fr.adaming.service.IProduitService;
 public class ProduitManagedBean {
 
 	// Appel des services admin
-	@EJB
 	private IProduitService prService;
-	@EJB
 	private ICategorieService caService;
 	private Produit produit, produitselected;
 	private List<Produit> listproduct;

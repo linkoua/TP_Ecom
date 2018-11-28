@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Supprimer categorie</title>
+</h:head>
+<h:body>
+	<ui:composition template="/secured/templates/layoutAdmin.xhtml">
+		<ui:define name="ContentAdmin">
+
+			<h:form>
+				<h1 style="color: white; text-align: center">Formulaire de
+					suppression d'une catégorie</h1>
+				<h:panelGrid columns="1" cellpadding="15"
+					style="width:50%; margin:auto">
+					<p:selectOneMenu style="width:100%; margin:auto"
+						value="#{caMB.selectId}" label="select menu">
+						<f:selectItem itemLabel="Selectionner une categorie à supprimer"
+							itemValue="EMPTY" />
+						<f:selectItems value="#{caMB.listCa}" var="ca"
+							itemValue="#{ca.id}"
+							itemLabel="ID: #{ca.id} - #{ca.nom}: #{ca.descre}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" cellpadding="15" style="margin:auto">
+					<p:commandButton value="Supprimer" action="#{caMB.deleteCategorie}"
+						ajax="false">
+					</p:commandButton>
+					<p:button value="Annuler" outcome="deleteCategorie" />
+				</h:panelGrid>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

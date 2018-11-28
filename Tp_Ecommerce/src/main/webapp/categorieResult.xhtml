@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Rechercher une catégorie</title>
+</h:head>
+<h:body>
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="Content">
+
+
+			<h:form id="form" enctype="multipart/form-data">
+				<div class="contentdiv">
+					<p:growl id="messages" showDetail="true" />
+					<h1 style="color: black; text-align: center">Rechercher une
+						catégorie:</h1>
+					<h:panelGrid columns="1" style="margin:auto; width:500px">
+						<h:outputText value="Rechercher par :" />
+						<p:selectOneButton valueChangeListener="#{vsMB.changeSearch}">
+							<f:selectItem itemLabel="Id catégorie" itemValue="ID" />
+							<f:selectItem itemLabel="Nom  de catégorie" itemValue="Nom" />
+							<f:selectItem itemLabel="Mots clés" itemValue="MotCle" />
+							<f:ajax event="change" render="@form" />
+						</p:selectOneButton>
+
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchId}"
+							style="margin:auto; text-align:center;">
+							<p:inputNumber label="Recherche id" decimalPlaces="0"
+								placeholder="Entrer un id" value="#{vsMB.categorie.id}" />
+							<p:commandButton id="searchId" value="Rechercher"
+								icon="fa fa-search" action="#{vsMB.searchById}" update="form" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchNom}"
+							style="margin:auto; text-align:center;">
+							<p:inputText label="Recherche nom" placeholder="Entrer un nom"
+								value="#{vsMB.categorie.nom}" />
+							<p:commandButton id="searchNom" value="Rechercher"
+								icon="fa fa-search" action="#{vsMB.searchByName}" update="form" />
+						</h:panelGrid>
+
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchMotCle}"
+							style="margin:auto; text-align:center;">
+							<p:inputText label="Recherche mots clés"
+								placeholder="Entrer mots clés" value="#{vsMB.motCle}" />
+							<p:commandButton id="searchMotCle" value="Rechercher"
+								icon="fa fa-search" action="#{vsMB.searchByMotCle}"
+								update="form" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</div>
+
+				<p:spacer />
+
+				<p:dataScroller value="#{vsMB.categorie}" var="ca" chunkSize="10"
+					rendered="#{vsMB.indiceTableId}">
+					<f:facet name="header">
+           				Resultats de la recherche par ID
+        			</f:facet>
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,logo">
+						<h:graphicImage value="#{ca.image}"
+							style="width: 100px; heigth: 100px" />
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Référence:" />
+								<h:outputText value="#REF.8000#{ca.id}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Nom:" />
+								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
+
+								<h:outputText value="Derscription:" />
+								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
+								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton title="Ajouter au panier" icon="btnCart"
+								styleClass="iconOnlyButton" ajax="false">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dataScroller>
+
+				<p:dataScroller value="#{vsMB.resultListCa}" var="ca" chunkSize="10"
+					rendered="#{vsMB.indiceTableNom}">
+					<f:facet name="header">
+           					Resultats de la recherche par nom
+        				</f:facet>
+
+					<f:facet name="loader">
+						<p:commandButton type="button" value="Plus"
+							icon="fa fa-chevron-circle-down" />
+					</f:facet>
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,logo">
+						<h:graphicImage value="#{ca.image}"
+							style="width: 100px; heigth: 100px" />
+
+						<p:outputPanel>
+							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
+								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton title="Ajouter au panier" icon="btnCart"
+								styleClass="iconOnlyButton" ajax="false">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+						</p:outputPanel>
+					</h:panelGrid>
+					<p:separator />
+				</p:dataScroller>
+
+				<p:dataScroller value="#{vsMB.resultSetCa}" var="ca" chunkSize="10"
+					rendered="#{vsMB.indiceTableMotCle}">
+					<f:facet name="header">
+           					Resultats de la recherche par mots clés
+        				</f:facet>
+
+					<f:facet name="loader">
+						<p:commandButton type="button" value="Plus"
+							icon="fa fa-chevron-circle-down" />
+					</f:facet>
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,logo">
+						<h:graphicImage value="#{ca.image}"
+							style="width: 100px; heigth: 100px" />
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Référence:" />
+								<h:outputText value="#REF.8000#{ca.id}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Nom:" />
+								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
+
+								<h:outputText value="Derscription:" />
+								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
+								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton title="Ajouter au panier" icon="btnCart"
+								styleClass="iconOnlyButton" ajax="false">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+						</p:outputPanel>
+					</h:panelGrid>
+					<p:separator />
+				</p:dataScroller>
+
+				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="caDetail" style="text-align:center;">
+						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
+							<h:graphicImage value="#{caMB.categorie.image}" />
+							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
+								style="width:100%;" columnClasses="label,value">
+
+								<h:outputText value="Référence:" />
+								<h:outputText value="#{caMB.categorie.id}" />
+								<h:outputText value="Nom" />
+								<h:outputText value="#{caMB.categorie.nom}" />
+							</p:panelGrid>
+							<h:outputText value="Description:" />
+							<h:outputText value="#{caMB.categorie.descre}" />
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
