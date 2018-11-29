@@ -24,14 +24,14 @@ public class Client extends Utilisateur {
 		super();
 	}
 
-	public Client(String nom, String mail, String adresse, String tel) {
-		super(nom, mail);
+	public Client(String nom, String mail, String password, String adresse, String tel) {
+		super(nom, mail,password);
 		this.adresse = adresse;
 		this.tel = tel;
 	}
 
-	public Client(int id, String nom, String mail, String adresse, String tel) {
-		super(id, nom, mail);
+	public Client(int id, String nom, String mail,String password, String adresse, String tel) {
+		super(id, nom, mail,password);
 		this.adresse = adresse;
 		this.tel = tel;
 	}

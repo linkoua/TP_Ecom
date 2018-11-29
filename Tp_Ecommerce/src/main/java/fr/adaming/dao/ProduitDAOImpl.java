@@ -84,25 +84,7 @@ public class ProduitDAOImpl implements IProduitDAO {
 		}
 	}
 
-	@Override
-	public List<Produit> getAllProduitCat(Produit p) {
-//		String req = "SELECT pr FROM Produit pr WHERE pr.categorie.id=:pCat";
-//		Query query = em.createQuery(req);
-//		query.setParameter("pCat", p.getCategorie().getId());
-//		query.getResultList();
-//		List<Produit> listIn = query.getResultList();
-//		List<Produit> listOut = new ArrayList<Produit>();
-//		if (listIn != null) {
-//			for (Produit pr : listIn) {
-//				pr.setImage("data:image/png;base64," + Base64.encodeBase64String(pr.getPhoto()));
-//				listOut.add(pr);
-//			}
-//			return listOut;
-//		} else {
-//			return listIn;
-//		}
-		return null;
-	}
+
 
 	@Override
 	public List<Produit> getAllProduitTag(String tag) {

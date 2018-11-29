@@ -44,11 +44,6 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
-	public List<Produit> getAllProduitCat(Produit p) {
-		return prDAO.getAllProduitCat(p);
-	}
-
-	@Override
 	public List<Produit> getAllProduitTag(String[] tagtab) {
 		List<Produit> listOut = new ArrayList<Produit>();
 
@@ -58,6 +53,12 @@ public class ProduitServiceImpl implements IProduitService {
 
 		}
 		return listOut;
+	}
+
+	@Override
+	public List<Produit> getAllProduitCat(Produit p) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -31,8 +31,9 @@ public class Administrateur extends Utilisateur {
 
 	@Override
 	public String toString() {
-		return "Administrateur [password=" + password + ", getId()=" + getId() + ", getNom()=" + getNom()
-				+ ", getMail()=" + getMail() + "]";
+		return "Administrateur [getId()=" + getId() + ", getNom()=" + getNom() + ", getMail()=" + getMail()
+				+ ", getPassword()=" + getPassword() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + "]";
 	}
 
 }

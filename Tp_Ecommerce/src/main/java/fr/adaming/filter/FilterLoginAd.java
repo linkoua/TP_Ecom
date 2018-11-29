@@ -26,7 +26,7 @@ public class FilterLoginAd implements Filter{
 		AdminManagedBean adMB= (AdminManagedBean)((HttpServletRequest)request).getSession().getAttribute("adMB");
 		//Regle si notre ManagedBean est null (aucun admin) ou que le boolean est false
 		//Alors tu le renvoi sur login
-		  if (adMB == null || !adMB.isLogIn()) {
+		  if (adMB == null || !adMB.isLogInAd()) {
 			  String contextPath = ((HttpServletRequest)request).getContextPath();
 	            ((HttpServletResponse)response).sendRedirect(contextPath + "/login.xhtml");
 	        }
