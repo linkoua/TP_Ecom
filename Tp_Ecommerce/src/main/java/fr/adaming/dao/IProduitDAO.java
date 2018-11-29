@@ -17,6 +17,7 @@ public interface IProduitDAO {
 
 	public List<Produit> getAllProduit();
 
+
 	public List<Produit> getAllProduitTag(String tag);
 
 }

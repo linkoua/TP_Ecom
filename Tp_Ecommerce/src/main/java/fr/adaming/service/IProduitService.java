@@ -16,8 +16,6 @@ public interface IProduitService {
 
 	public List<Produit> getAllProduit();
 
-	public List<Produit> getAllProduitCat(Produit p);
-
 	public List<Produit> getAllProduitTag(String[] tag);
 
 }

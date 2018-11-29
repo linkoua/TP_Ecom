@@ -223,25 +223,6 @@ public class ProduitManagedBean {
 		}
 	}
 
-	public String chercherProduitCat() {
-		if (prService.getAllProduitCat(this.produit) != null) {
-			this.listproductCat = prService.getAllProduitCat(this.produit);
-			return "resultproduct.xhtml";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur lors de la recherche"));
-			return "resultproduct.xhtml";
-		}
-	}
-	
-	public String chercherProduitTag() {
-		if (prService.getAllProduitCat(this.produit) != null) {
-			this.listproductCat = prService.getAllProduitCat(this.produit);
-			return "resultproduct.xhtml";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur lors de la recherche"));
-			return "resultproduct.xhtml";
-		}
-	}
 	
 	public String ajouterPanier() {
 		lcommande.setProduit(produit);

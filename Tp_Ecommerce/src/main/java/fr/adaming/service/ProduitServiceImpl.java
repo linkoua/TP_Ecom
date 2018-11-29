@@ -55,10 +55,4 @@ public class ProduitServiceImpl implements IProduitService {
 		return listOut;
 	}
 
-	@Override
-	public List<Produit> getAllProduitCat(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

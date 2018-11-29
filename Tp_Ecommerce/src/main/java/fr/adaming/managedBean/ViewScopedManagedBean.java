@@ -435,31 +435,6 @@ public class ViewScopedManagedBean implements Serializable {
 
 	}
 
-	public void searchPrByCategorie() {
-
-		resultListPr = prService.getAllProduitCat(produit);
-
-		if (resultListPr.size() != 0) {
-
-			// Afficher le tableau de résultat et cacher les autres
-			indiceTablePrId = false;
-			indiceTablePrCat = true;
-			indiceTablePrMotCle = false;
-
-		} else {
-
-			// Cacher tous les tableaux de résultats
-			indiceTablePrId = false;
-			indiceTablePrCat = false;
-			indiceTablePrMotCle = false;
-
-			// Message d'erreur
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Aucun résultat!", "Pas de produit correspondant à cette catégorie"));
-
-		}
-
-	}
 
 	public void searchPrByMotCle() {
 
