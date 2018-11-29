@@ -14,7 +14,7 @@ import fr.adaming.service.IClientService;
 @SessionScoped
 public class ClientManagedBean {
 	// Injection de dépendance des services
-		@ManagedProperty(value = "#{adService}")
+		@ManagedProperty(value = "#{clService}")
 		private IClientService clService;
 		
 		
