@@ -34,11 +34,27 @@ public class CategorieServiceImpl implements ICategorieService {
 	@Override
 	public Categorie updateCategorie(Categorie ca, Administrateur ad) {
 
-		return caDao.updateCategorie(ca);
+		Categorie caOut = caDao.getById(ca);
+
+		if (caOut != null) {
+			caOut.setNom(ca.getNom());
+			caOut.setDescre(ca.getDescre());
+			caOut.setPhoto(ca.getPhoto());
+			caOut.setImage(ca.getImage());
+			caOut.setListep(ca.getListep());
+
+			return caDao.updateCategorie(caOut);
+		} else {
+
+			return null;
+		}
+
 	}
 
 	@Override
 	public int deleteCategorie(Categorie ca, Administrateur ad) {
+
+		ca = caDao.getById(ca);
 
 		return caDao.deleteCategorie(ca);
 	}

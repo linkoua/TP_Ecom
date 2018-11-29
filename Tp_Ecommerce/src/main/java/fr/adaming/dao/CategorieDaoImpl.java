@@ -3,6 +3,8 @@ package fr.adaming.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.BorderUIResource.EtchedBorderUIResource;
+
 import org.apache.commons.codec.binary.Base64;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -61,10 +63,14 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public Categorie updateCategorie(Categorie ca) {
 
-//		Categorie caOut = em.merge(ca);
-//		if (caOut != null) {
-//			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
-//		}
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
+
+		s.saveOrUpdate(ca);
+
+		if (ca != null) {
+			ca.setImage("data:image/png;base64," + Base64.encodeBase64String(ca.getPhoto()));
+		}
 
 		return ca;
 	}
@@ -72,26 +78,34 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public int deleteCategorie(Categorie ca) {
 
-//		String req = "DELETE FROM Categorie ca WHERE id_ca=:pId";
-//
-//		Query query = em.createQuery(req);
-//
-//		// Assigner les paramètres à la requète
-//		query.setParameter("pId", ca.getId());
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
 
-		return 0; // query.executeUpdate();
+		// Requète HQL
+		String req = "DELETE FROM Categorie ca WHERE id_ca=:pId";
+
+		Query query = s.createQuery(req);
+
+		// Assigner les paramètres à la requète
+		query.setParameter("pId", ca.getId());
+
+		return query.executeUpdate();
 
 	}
 
 	@Override
 	public Categorie getById(Categorie ca) {
 
-//		Categorie caOut = em.find(Categorie.class, ca.getId());
-//		if (caOut != null) {
-//			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
-//		}
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
 
-		return null; // caOut;
+		Categorie caOut = (Categorie) s.get(Categorie.class, ca.getId());
+
+		if (caOut != null) {
+			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
+		}
+
+		return caOut;
 	}
 
 	@Override

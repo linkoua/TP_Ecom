@@ -260,10 +260,6 @@ public class CategorieManagedBean implements Serializable {
 
 	public String deleteCategorie() {
 
-		// Recherche de la catégorie par l'ID selectionné
-
-		categorie = caService.getById(categorie);
-
 		int verif = caService.deleteCategorie(categorie, admin);
 
 		if (verif != 0) {

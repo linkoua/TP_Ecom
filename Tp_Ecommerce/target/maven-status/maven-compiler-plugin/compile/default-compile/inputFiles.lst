@@ -4,7 +4,6 @@ C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\ICommandeDAO.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\IClientService.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\ProduitDAOImpl.java
-C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\filter\FilterLogin.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\ProduitManagedBean.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Utilisateur.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\ViewScopedManagedBeanP.java
@@ -12,12 +11,15 @@ C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\IPro
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\ClientServiceImpl.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\AdminDAOImpl.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\CategorieServiceImpl.java
+C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\LigneCommandeDAOImp.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\IClientDAO.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Produit.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\util\CommandePDF.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\IAdminService.java
+C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\filter\FilterLoginAd.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\ViewScopedManagedBean.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\IAdminDAO.java
+C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\ClientManagedBean.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\IProduitService.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Administrateur.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\CommandeServiceImpl.java
@@ -27,11 +29,13 @@ C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedB
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\PanierManagedBean.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Categorie.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Commande.java
+C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\filter\FilterLoginCl.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\managedBean\AdminManagedBean.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\util\Mail.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Client.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\modele\Panier.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\ProduitServiceImpl.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\ClientDAOImpl.java
+C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\ILigneCommandeDAO.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\dao\ICategorieDao.java
 C:\Users\Adaming\git\Tp_Ecommerce\Tp_Ecommerce\src\main\java\fr\adaming\service\ICommandeService.java
