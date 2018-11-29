@@ -33,7 +33,7 @@
 	</bean>
 
 	<!-- Déclaration du bean sessionFactory -->
-	<bean id="sessionFactoryBean"
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 
 		<!-- Ijection du bean ds par modificateur -->
@@ -57,7 +57,7 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 
 		<!-- Ijection du bean sessionFactory par modificateur -->
-		<property name="sessionFactory" ref="sessionFactoryBean" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- Activation de la détection des annotations des transactions: @Transactionnal -->

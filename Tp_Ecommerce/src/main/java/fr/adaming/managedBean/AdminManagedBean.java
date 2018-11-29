@@ -73,10 +73,10 @@ public class AdminManagedBean {
 
 	// Les méthodes
 	public String login() {
-		System.out.println(administrateur.getMail());
-		System.out.println(administrateur.getPassword());
-		try {
-			Administrateur aOut = adService.isExist(this.administrateur);
+
+		Administrateur aOut = adService.isExist(this.administrateur);
+
+		if (aOut != null) {
 
 			// Le mettre dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adSession", aOut);
@@ -91,7 +91,7 @@ public class AdminManagedBean {
 			// Utilisation de la méthode de redirection
 			logInAd = true;
 			return "/secured/espace.xhtml?faces-redirect=true";
-		} catch (Exception ex) {
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mail ou MdP Invalide"));
 			return "/login.xhtml";
 		}

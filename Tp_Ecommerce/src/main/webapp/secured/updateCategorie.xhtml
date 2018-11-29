@@ -20,12 +20,16 @@
 						catégorie:</h1>
 					<h:panelGrid columns="1" style="margin:auto; width:400px">
 						<h:outputText value="Référence: *" />
-						<p:inputText value="#{caMB.categorie.id}" readonly="false" />
+						<p:inputText value="#{caMB.categorie.id}" readonly="false">
+							<p:ajax event="keyup" update="nom descre"
+								listener="#{caMB.handleKeyEvent}" />
+						</p:inputText>
 						<h:outputText value="Nom: *" />
-						<p:inputText value="#{caMB.categorie.nom}" required="true" />
+						<p:inputText id="nom" value="#{caMB.categorie.nom}"
+							required="true" />
 						<h:outputText value="Description: " />
-						<p:inputTextarea label="Description" rows="5" cols="70"
-							counter="display" maxlength="250"
+						<p:inputTextarea id="descre" label="Description" rows="5"
+							cols="70" counter="display" maxlength="250"
 							counterTemplate="{0} caractères restant" autoResize="false"
 							value="#{caMB.categorie.descre}" required="true" />
 						<h:outputText id="display" />

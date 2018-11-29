@@ -9,8 +9,10 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpSession;
 
@@ -18,14 +20,27 @@ import org.primefaces.model.UploadedFile;
 
 import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "caMB")
 @RequestScoped
 public class CategorieManagedBean implements Serializable {
 
 	// Transformation de l'association UML en JAVA
+	@ManagedProperty(value = "#{caService}")
 	private ICategorieService caService;
+	@ManagedProperty(value = "#{prService}")
+	private IProduitService prService;
+
+	public void setCaService(ICategorieService caService) {
+		this.caService = caService;
+	}
+
+	public void setPrService(IProduitService prService) {
+		this.prService = prService;
+	}
 
 	// Attribut du managed bean
 	private Administrateur admin;
@@ -41,6 +56,8 @@ public class CategorieManagedBean implements Serializable {
 	private boolean indiceTableId;
 	private boolean indiceTableNom;
 	private boolean indiceTableMotCle;
+
+	private boolean indiceSupprProduitCatDial;
 
 	private String motCle;
 	private List<Categorie> resultListCa;
@@ -172,12 +189,20 @@ public class CategorieManagedBean implements Serializable {
 		this.checkbox = checkbox;
 	}
 
+	public boolean isIndiceSupprProduitCatDial() {
+		return indiceSupprProduitCatDial;
+	}
+
+	public void setIndiceSupprProduitCatDial(boolean indiceSupprProduitCatDial) {
+		this.indiceSupprProduitCatDial = indiceSupprProduitCatDial;
+	}
+
 	// Les autres méthodes
 
 	// Initialisation
-
 	@PostConstruct
 	public void init() {
+
 		categorie = new Categorie();
 		resultListCa = new ArrayList<Categorie>();
 		resultSetCa = new HashSet<Categorie>();
@@ -188,13 +213,13 @@ public class CategorieManagedBean implements Serializable {
 		// Récup l'admin de la session
 		admin = (Administrateur) maSession.getAttribute("adSession");
 
-		listCa = caService.getAllCategories();
+		listCa = (List<Categorie>) maSession.getAttribute("listCaSession");
 
 	}
 
 	public String addCategorie() {
 
-		if (file != null) {
+		if (file.getSize() > 0) {
 			this.categorie.setPhoto(file.getContents());
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload Failed"));
@@ -203,10 +228,6 @@ public class CategorieManagedBean implements Serializable {
 		Categorie caOut = caService.addCategorie(categorie);
 
 		if (caOut != null) {
-
-			for (Categorie elem : caService.getAllCategories()) {
-				System.out.println(elem.getImage());
-			}
 
 			// Mettre à jour la liste des categories
 			maSession.setAttribute("listCaSession", caService.getAllCategories());
@@ -260,6 +281,18 @@ public class CategorieManagedBean implements Serializable {
 
 	public String deleteCategorie() {
 
+		categorie = caService.getById(categorie);
+
+		Set<Produit> setP = categorie.getListep();
+
+		if (!setP.isEmpty()) {
+
+			for (Produit elem : setP) {
+				prService.deleteProduit(elem);
+			}
+
+		}
+
 		int verif = caService.deleteCategorie(categorie, admin);
 
 		if (verif != 0) {
@@ -275,12 +308,31 @@ public class CategorieManagedBean implements Serializable {
 
 		}
 
+		// Supprimer la catégorie de la session
+		maSession.setAttribute("caSession", null);
+
 		return "listCategories";
 
 	}
 
+	public String cancelDelete() {
+
+		// Supprimer la catégorie de la session
+		maSession.setAttribute("caSession", null);
+
+		return "listCategories";
+	}
+
 	public String showCategories() {
 		return "categoriesList";
+	}
+
+	public void handleKeyEvent() {
+		categorie = caService.getById(categorie);
+	}
+
+	public void fillUpdate() {
+		categorie = caService.getById(categorie);
 	}
 
 }

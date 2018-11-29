@@ -2,6 +2,8 @@ package fr.adaming.modele;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,8 +34,8 @@ public class Categorie implements Serializable {
 	private String image;
 
 	// Transformation de l'association UML
-	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Produit> listep;
+	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Produit> listep;
 
 	// Declaration des constructeurs
 
@@ -90,11 +92,11 @@ public class Categorie implements Serializable {
 		this.descre = descre;
 	}
 
-	public List<Produit> getListep() {
+	public Set<Produit> getListep() {
 		return listep;
 	}
 
-	public void setListep(List<Produit> listep) {
+	public void setListep(Set<Produit> listep) {
 		this.listep = listep;
 	}
 

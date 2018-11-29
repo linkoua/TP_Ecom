@@ -38,6 +38,7 @@ public class CategorieDaoImpl implements ICategorieDao {
 		// FOR ELEMENT LIST set image
 		List<Categorie> listIn = query.list();
 		List<Categorie> listOut = new ArrayList<Categorie>();
+
 		if (listIn != null) {
 			for (Categorie elem : listIn) {
 				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));

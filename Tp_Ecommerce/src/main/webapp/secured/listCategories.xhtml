@@ -13,8 +13,9 @@
 		<ui:define name="ContentAdmin">
 			<br />
 			<h:form id="form">
-				<p:dataTable var="ca" value="#{caMB.listCa}" paginator="true"
-					rows="10" resizableColumns="true" style="width: 90%; margin : auto"
+				<p:dataTable var="ca" value="#{sessionScope.listCaSession}"
+					paginator="true" rows="10" resizableColumns="true"
+					style="width: 90%; margin : auto"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					rowsPerPageTemplate="5,10,15" id="caTable" lazy="true">
 
@@ -35,42 +36,35 @@
 							style="width: 100px; heigth: 100px" />
 					</p:column>
 					<p:column style="width: 130px">
-						<p:commandButton icon="btnDelete" title="Supprimer catégorie"
-							styleClass="iconOnlyButton" action="#{caMB.deleteCategorie}">
+						<p:commandButton title="Supprimer catégorie" icon="btnDelete"
+							styleClass="iconOnlyButton" update=":form:deleteConfirm"
+							oncomplete="PF('delDialog').show()">
 							<f:setPropertyActionListener value="#{ca}"
-								target="#{caMB.categorie}" />
-							<p:confirm header="Confirmer la suppression"
-								message="Supprimer la catégorie #{caMB.categorie.nom}: Êtes-vous sûr?"
-								icon="fa fa-warning" />
+								target="#{sessionScope.caSession}" />
 						</p:commandButton>
-						<p:confirmDialog global="true">
-							<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
-								type="button" icon="fa fa-check" />
-							<p:commandButton value="Non" styleClass="ui-confirmdialog-no"
-								type="button" icon="fa fa-times" />
-						</p:confirmDialog>
 						<p:commandButton title="Modifier catégorie" icon="btnModify"
 							styleClass="iconOnlyButton" action="#{caMB.linkUpdate}"
 							ajax="false">
 							<f:setPropertyActionListener value="#{ca}"
 								target="#{caMB.categorie}" />
 						</p:commandButton>
-						<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-							update=":form:caDetail" oncomplete="PF('caDialog').show()">
+						<p:commandButton title="Détail catégories" icon="btnView"
+							styleClass="iconOnlyButton" update=":form:caDetail"
+							oncomplete="PF('caDialog').show()">
 							<f:setPropertyActionListener value="#{ca}"
 								target="#{caMB.categorie}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 
-				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
-					showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dialog id="InfoCatDial" header="Catégorie Info"
+					widgetVar="caDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
 					<p:outputPanel id="caDetail" style="text-align:center;">
 						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
 							<h:graphicImage value="#{caMB.categorie.image}" />
 							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
 								style="width:100%;" columnClasses="label,value">
-
 								<h:outputText value="Référence:" />
 								<h:outputText value="#{caMB.categorie.id}" />
 								<h:outputText value="Nom" />
@@ -79,6 +73,39 @@
 							<h:outputText value="Description:" />
 							<h:outputText value="#{caMB.categorie.descre}" />
 						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog id="SupprProduitCatDial" header="Confirmer la suppression"
+					widgetVar="delDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="deleteConfirm">
+						<p:outputPanel style="text-align:left;">
+							<p:outputLabel value="Suppression de la catégorie :" />
+							<p:outputLabel style="font-weight: bold"
+								value=" #{sessionScope.caSession.nom}" />
+							<br />
+							<br />
+							<p:outputLabel
+								rendered="#{not empty sessionScope.caSession.listep}"
+								value="ATTENTION: " />
+							<br />
+							<p:outputLabel
+								rendered="#{not empty sessionScope.caSession.listep}"
+								value="La suppression de la catégorie entrainera egalement la suppression de tous ses produits(#{sessionScope.caSession.listep.size()})!" />
+						</p:outputPanel>
+						<p:outputPanel style="text-align:right;">
+							<br />
+							<p:outputLabel value="Êtes-vous sûr ? " />
+							<p:spacer width="50" height="20" />
+							<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
+								icon="fa fa-check" action="#{caMB.deleteCategorie}" ajax="false">
+								<f:setPropertyActionListener value="#{sessionScope.caSession}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton value="Non" styleClass="ui-confirmdialog-no"
+								icon="fa fa-times" action="#{caMB.cancelDelete}" ajax="false" />
+						</p:outputPanel>
 					</p:outputPanel>
 				</p:dialog>
 

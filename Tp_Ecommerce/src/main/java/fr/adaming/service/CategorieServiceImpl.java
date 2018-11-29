@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 
 @Service("caService")
 @Transactional
@@ -53,8 +54,6 @@ public class CategorieServiceImpl implements ICategorieService {
 
 	@Override
 	public int deleteCategorie(Categorie ca, Administrateur ad) {
-
-		ca = caDao.getById(ca);
 
 		return caDao.deleteCategorie(ca);
 	}
