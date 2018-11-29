@@ -36,13 +36,12 @@ public class Produit implements Serializable {
 	private byte[] photo;
 	@Transient
 	private String image;
-	
 
 	// Transformation de l'asso UML en Java
 	@ManyToOne
 	@JoinColumn(name = "ca_id", referencedColumnName = "id_ca")
 	private Categorie categorie;
-	@OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<LigneCommande> listelcommande;
 
 	// Declaration des constructeurs
@@ -146,6 +145,5 @@ public class Produit implements Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
 
 }

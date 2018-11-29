@@ -3,10 +3,19 @@ package fr.adaming.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import fr.adaming.dao.IProduitDAO;
 import fr.adaming.modele.Produit;
 
+@Service("prService")
+@Transactional
 public class ProduitServiceImpl implements IProduitService {
+
+	// Transformation de l'associationUML en JAVA
+	@Autowired
 	private IProduitDAO prDAO;
 
 	@Override

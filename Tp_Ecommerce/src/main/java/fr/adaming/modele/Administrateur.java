@@ -7,7 +7,7 @@ import javax.persistence.Table;
 @Table(name = "admins")
 public class Administrateur extends Utilisateur {
 
-	// Declarations des constructeurs
+	// Declarations des attributs
 	private String password;
 
 	// Declaration des constructeurs

@@ -3,28 +3,38 @@ package fr.adaming.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.apache.commons.codec.binary.Base64;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import fr.adaming.modele.Categorie;
 
+@Repository
 public class CategorieDaoImpl implements ICategorieDao {
 
-	@PersistenceContext(unitName = "pu_com")
-	private EntityManager em;
+	@Autowired
+	private SessionFactory sf;
+
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 
 	@Override
 	public List<Categorie> getAllCategories() {
 
-		String req = "SELECT ca FROM Categorie ca";
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
 
-		Query query = em.createQuery(req);
+		// Requete HQL
+		String req = "FROM Categorie ca";
+
+		Query query = s.createQuery(req);
 
 		// FOR ELEMENT LIST set image
-		List<Categorie> listIn = query.getResultList();
+		List<Categorie> listIn = query.list();
 		List<Categorie> listOut = new ArrayList<Categorie>();
 		if (listIn != null) {
 			for (Categorie elem : listIn) {
@@ -33,7 +43,6 @@ public class CategorieDaoImpl implements ICategorieDao {
 			}
 			return listOut;
 		} else {
-
 			return listIn;
 		}
 	}
@@ -41,7 +50,10 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public Categorie addCategorie(Categorie ca) {
 
-		em.persist(ca);
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
+
+		s.save(ca);
 
 		return ca;
 	}
@@ -49,10 +61,10 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public Categorie updateCategorie(Categorie ca) {
 
-		Categorie caOut = em.merge(ca);
-		if (caOut != null) {
-			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
-		}
+//		Categorie caOut = em.merge(ca);
+//		if (caOut != null) {
+//			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
+//		}
 
 		return ca;
 	}
@@ -60,82 +72,85 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public int deleteCategorie(Categorie ca) {
 
-		String req = "DELETE FROM Categorie ca WHERE id_ca=:pId";
+//		String req = "DELETE FROM Categorie ca WHERE id_ca=:pId";
+//
+//		Query query = em.createQuery(req);
+//
+//		// Assigner les paramètres à la requète
+//		query.setParameter("pId", ca.getId());
 
-		Query query = em.createQuery(req);
-
-		// Assigner les paramètres à la requète
-		query.setParameter("pId", ca.getId());
-
-		return query.executeUpdate();
+		return 0; // query.executeUpdate();
 
 	}
 
 	@Override
 	public Categorie getById(Categorie ca) {
 
-		Categorie caOut = em.find(Categorie.class, ca.getId());
-		if (caOut != null) {
-			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
-		}
+//		Categorie caOut = em.find(Categorie.class, ca.getId());
+//		if (caOut != null) {
+//			caOut.setImage("data:image/png;base64," + Base64.encodeBase64String(caOut.getPhoto()));
+//		}
 
-		return caOut;
+		return null; // caOut;
 	}
 
 	@Override
 	public List<Categorie> getByName(Categorie ca) {
 
-		String req = "SELECT ca FROM Categorie ca WHERE ca.nom LIKE :pNom";
+//		String req = "SELECT ca FROM Categorie ca WHERE ca.nom LIKE :pNom";
+//
+//		Query query = em.createQuery(req);
+//
+//		// Construction de la chaine de caractère
+//		String name = "%" + ca.getNom() + "%";
+//
+//		// Assigner les paramètres à la requète
+//		query.setParameter("pNom", name);
+//
+//		// FOR ELEMENT LIST set image
+//		List<Categorie> listIn = query.getResultList();
+//		List<Categorie> listOut = new ArrayList<Categorie>();
+//		if (listIn != null) {
+//			for (Categorie elem : listIn) {
+//				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
+//				listOut.add(elem);
+//			}
+//			return listOut;
+//		} else {
+//
+//			return listIn;
+//		}
 
-		Query query = em.createQuery(req);
-
-		// Construction de la chaine de caractère
-		String name = "%" + ca.getNom() + "%";
-
-		// Assigner les paramètres à la requète
-		query.setParameter("pNom", name);
-
-		// FOR ELEMENT LIST set image
-		List<Categorie> listIn = query.getResultList();
-		List<Categorie> listOut = new ArrayList<Categorie>();
-		if (listIn != null) {
-			for (Categorie elem : listIn) {
-				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
-				listOut.add(elem);
-			}
-			return listOut;
-		} else {
-
-			return listIn;
-		}
+		return null;
 	}
 
 	@Override
 	public List<Categorie> getByMotCle(String motCle) {
 
-		String req = "SELECT ca FROM Categorie ca WHERE ca.descre LIKE :pDescre";
-
-		Query query = em.createQuery(req);
-
-		// Construction de la chaine de caractère
-		motCle = "%" + motCle + "%";
-
-		// Assigner les paramètres à la requète
-		query.setParameter("pDescre", motCle);
-
-		// FOR ELEMENT LIST set image
-		List<Categorie> listIn = query.getResultList();
-		List<Categorie> listOut = new ArrayList<Categorie>();
-		if (listIn != null) {
-			for (Categorie elem : listIn) {
-				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
-				listOut.add(elem);
-			}
-			return listOut;
-		} else {
-
-			return listIn;
-		}
+//		String req = "SELECT ca FROM Categorie ca WHERE ca.descre LIKE :pDescre";
+//
+//		Query query = em.createQuery(req);
+//
+//		// Construction de la chaine de caractère
+//		motCle = "%" + motCle + "%";
+//
+//		// Assigner les paramètres à la requète
+//		query.setParameter("pDescre", motCle);
+//
+//		// FOR ELEMENT LIST set image
+//		List<Categorie> listIn = query.getResultList();
+//		List<Categorie> listOut = new ArrayList<Categorie>();
+//		if (listIn != null) {
+//			for (Categorie elem : listIn) {
+//				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
+//				listOut.add(elem);
+//			}
+//			return listOut;
+//		} else {
+//
+//			return listIn;
+//		}
+		return null;
 	}
 
 }

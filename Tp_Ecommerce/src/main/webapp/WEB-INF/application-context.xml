@@ -40,7 +40,7 @@
 		<property name="dataSource" ref="dsBean" />
 
 		<!-- Spécifier les classes persistantes -->
-		<property name="packagesToScan" value="fr.adaming.model" />
+		<property name="packagesToScan" value="fr.adaming.modele" />
 
 		<!-- Configuration de hibernate -->
 		<property name="hibernateProperties">

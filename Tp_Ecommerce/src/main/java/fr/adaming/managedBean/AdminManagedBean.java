@@ -3,11 +3,11 @@ package fr.adaming.managedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import fr.adaming.modele.Administrateur;
-import fr.adaming.modele.Categorie;
 import fr.adaming.service.IAdminService;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
@@ -15,34 +15,50 @@ import fr.adaming.service.IProduitService;
 @ManagedBean(name = "adMB")
 @SessionScoped
 public class AdminManagedBean {
-	// Appel des services admin
+
+	// Injection de dépendance des services
+	@ManagedProperty(value = "#{adService}")
 	private IAdminService adService;
+	@ManagedProperty(value = "#{caService}")
+	private ICategorieService caService;
+	@ManagedProperty(value = "#{prService}")
+	private IProduitService prService;
+
+	// Les setters pour les services
+	public void setAdService(IAdminService adService) {
+		this.adService = adService;
+	}
+
+	public void setCaService(ICategorieService caService) {
+		this.caService = caService;
+	}
+
+	public void setPrService(IProduitService prService) {
+		this.prService = prService;
+	}
+
+	// Les attribut du managedBean
 	private Administrateur administrateur;
+
 	// Utilisation d'un boolean pour le filtre login
 	private boolean logIn;
-
-	// Appel des services Categorie
-	private ICategorieService caService;
-
-	// Appel des services Produit
-	private IProduitService prService;
 
 	// Constructeur vide
 	public AdminManagedBean() {
 		super();
 	}
 
-	// Initier les instatiation
+	// Initier les instantiations
 	@PostConstruct
 	public void init() {
 		this.administrateur = new Administrateur();
 	}
 
+	// Les getters et setters
 	public Administrateur getAdministrateur() {
 		return administrateur;
 	}
 
-	// Les getter et setter
 	public void setAdministrateur(Administrateur administrateur) {
 		this.administrateur = administrateur;
 	}
@@ -57,8 +73,11 @@ public class AdminManagedBean {
 
 	// Les méthodes
 	public String login() {
+		System.out.println(administrateur.getMail());
+		System.out.println(administrateur.getPassword());
 		try {
 			Administrateur aOut = adService.isExist(this.administrateur);
+
 			// Le mettre dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adSession", aOut);
 

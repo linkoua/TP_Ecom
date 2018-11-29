@@ -32,7 +32,7 @@ public class Categorie implements Serializable {
 	private String image;
 
 	// Transformation de l'association UML
-	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Produit> listep;
 
 	// Declaration des constructeurs
