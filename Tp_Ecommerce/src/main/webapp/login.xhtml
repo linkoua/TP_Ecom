@@ -7,33 +7,53 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Corps</title>
+	<title>Login Page</title>
 </h:head>
 <h:body>
 
-	<ui:composition template="/templates/layout.xhtml">
-		<ui:define name="Content">
+	<p:tabView>
+    <p:tab title="Administrateur">
+    <h:form>
+			<p:outputLabel>
+			<h:panelGrid id="panel" columns="1" cellpadding="15"
+			>
+			<f:facet name="header">
+				<h:outputText value="Espace Administrateur"/>
+			</f:facet>
+			<p:inputText styleClass="input-login" placeholder="Identifiant" value="#{}"/>
+			<p:password styleClass="input-password" placeholder="Mot de passe" value="#{}" />
 
-			<div class="contentdiv">
-				<h:form>
-					<p:growl id="growl" showDetail="true" />
-					<h1 style="color: black; text-align: center">Espace
-						Administrateur</h1>
-					<h:panelGrid columns="1" style="margin:auto; width:400px">
-						<p:inputText styleClass="input-login" placeholder="Identifiant"
-							value="#{adMB.administrateur.mail}" />
-						<p:password styleClass="input-password" placeholder="Mot de passe"
-							value="#{adMB.administrateur.password}" />
+			<f:facet name="footer">
+				<h:panelGroup style="display:block; text-align:center">
+					<h:commandButton styleClass="buttonco" value="Connexion" action="#{}"/>
+				</h:panelGroup>
+			</f:facet>
+		</h:panelGrid>
+			</p:outputLabel>
+	</h:form>
+    </p:tab>
+    <p:tab title="Client">
+    <h:form>
+			<p:outputLabel>
+			
+			<h:panelGrid id="panelG" columns="1" cellpadding="15"
+			>
+			<f:facet name="header">
+				<h:outputText value="Espace Client" placeholder="Identifiant" />
+			</f:facet>
+			<p:inputText styleClass="input-login"  placeholder="Identifiant" value="#{}"/>
+			<p:password styleClass="input-password" placeholder="Mot de passe" value="#{}"/>
 
-						<h:panelGroup style="display:block; text-align:center">
-							<p:commandButton styleClass="buttonco" value="Connexion"
-								action="#{adMB.login}" ajax="false" />
-						</h:panelGroup>
-					</h:panelGrid>
-				</h:form>
-			</div>
-
-		</ui:define>
-	</ui:composition>
+			<f:facet name="footer">
+				<h:panelGroup style="display:block; text-align:center">
+					<h:commandButton styleClass="buttonge" value="Connexion" action="#{}" />
+				</h:panelGroup>
+			</f:facet>
+		</h:panelGrid>
+		</p:outputLabel>
+	</h:form>
+    </p:tab>
+	</p:tabView>
+	<h:messages style="Text-align:center; color=red;" />
 </h:body>
 </html>

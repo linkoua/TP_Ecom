@@ -89,7 +89,7 @@ public class AdminManagedBean {
 
 			// Acceptation du logIn (boolean true)
 			// Utilisation de la méthode de redirection
-			logIn = true;
+			logInAd = true;
 			return "/secured/espace.xhtml?faces-redirect=true";
 		} catch (Exception ex) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mail ou MdP Invalide"));

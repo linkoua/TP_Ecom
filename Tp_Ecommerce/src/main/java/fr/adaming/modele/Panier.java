@@ -8,6 +8,7 @@ public class Panier {
 	// Transformation de l'association UML
 	private List<LigneCommande> listCommande;
 	private LigneCommande lcommande;
+	private double total;
 
 	// Builder
 	public Panier() {
@@ -29,7 +30,13 @@ public class Panier {
 	}
 
 
-	// toString (debug usefull)
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 	public List<LigneCommande> getListCommande() {
 		return listCommande;
@@ -46,6 +53,8 @@ public class Panier {
 	public void setLcommande(LigneCommande lcommande) {
 		this.lcommande = lcommande;
 	}
+
+	// toString (debug usefull)
 
 	@Override
 	public String toString() {

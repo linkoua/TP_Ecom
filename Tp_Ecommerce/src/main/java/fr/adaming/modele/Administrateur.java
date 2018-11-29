@@ -8,7 +8,6 @@ import javax.persistence.Table;
 public class Administrateur extends Utilisateur {
 
 	// Declarations des attributs
-	private String password;
 
 	// Declaration des constructeurs
 	public Administrateur() {
@@ -17,24 +16,17 @@ public class Administrateur extends Utilisateur {
 	}
 
 	public Administrateur(String nom, String mail, String password) {
-		super(nom, mail);
-		this.password = password;
+		super(nom, mail,password);
+		
 	}
 
 	public Administrateur(int id, String nom, String mail, String password) {
-		super(id, nom, mail);
-		this.password = password;
+		super(id, nom, mail,password);
+		
 	}
 
 	// Declaration Getter/Setter
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
 	// toString (debug usefull)
 
 	@Override

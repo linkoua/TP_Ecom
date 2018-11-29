@@ -18,23 +18,26 @@ public abstract class Utilisateur implements Serializable {
 	private int id;
 	private String nom;
 	private String mail;
+	private String password;
 
 	// Builder
 	public Utilisateur() {
 		super();
 	}
 
-	public Utilisateur(String nom, String mail) {
+	public Utilisateur(String nom, String mail, String password) {
 		super();
 		this.nom = nom;
 		this.mail = mail;
+		this.password=password;
 	}
 
-	public Utilisateur(int id, String nom, String mail) {
+	public Utilisateur(int id, String nom, String mail, String password) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.mail = mail;
+		this.password=password;
 	}
 
 	// Getters et Setters
@@ -62,11 +65,17 @@ public abstract class Utilisateur implements Serializable {
 		this.mail = mail;
 	}
 
-	// toString (debug usefull)
+	public String getPassword() {
+		return password;
+	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	// toString (debug usefull)
 	@Override
 	public String toString() {
-		return "Utilisateur [id=" + id + ", nom=" + nom + ", mail=" + mail + "]";
+		return "Utilisateur [id=" + id + ", nom=" + nom + ", mail=" + mail + ", password=" + password + "]";
 	}
 
 }
