@@ -41,7 +41,7 @@ public class AdminManagedBean {
 	private Administrateur administrateur;
 
 	// Utilisation d'un boolean pour le filtre login
-	private boolean logIn;
+	private boolean logInAd;
 
 	// Constructeur vide
 	public AdminManagedBean() {
@@ -63,12 +63,12 @@ public class AdminManagedBean {
 		this.administrateur = administrateur;
 	}
 
-	public boolean isLogIn() {
-		return logIn;
+	public boolean isLogInAd() {
+		return logInAd;
 	}
 
-	public void setLogIn(boolean logIn) {
-		this.logIn = logIn;
+	public void setLogInAd(boolean logIn) {
+		this.logInAd = logIn;
 	}
 
 	// Les méthodes

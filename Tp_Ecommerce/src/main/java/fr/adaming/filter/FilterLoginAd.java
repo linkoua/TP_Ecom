@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.adaming.managedBean.AdminManagedBean;
 
 //Implementation de servlet filtre
-public class FilterLogin implements Filter{
+public class FilterLoginAd implements Filter{
 
 	@Override
 	public void destroy() {	

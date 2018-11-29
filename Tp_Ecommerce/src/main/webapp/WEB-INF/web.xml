@@ -12,20 +12,51 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/application-context.xml</param-value>
 	</context-param>
+  <!-- Liste des filtres -->
+  <filter>
+    <filter-name>FilterLoginAd</filter-name>
+    <filter-class>fr.adaming.filter.FilterLogin</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FilterLoginAd</filter-name>
+    <url-pattern>/secured/*</url-pattern>
+  </filter-mapping>
 
-	<welcome-file-list>
-		<welcome-file>home.xhtml</welcome-file>
-	</welcome-file-list>
-
+    <filter>
+    <filter-name>FilterLoginCl</filter-name>
+    <filter-class>fr.adaming.filter.FilterLoginCl</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>FilterLoginCl</filter-name>
+    <url-pattern>/client/*</url-pattern>
+  </filter-mapping>
+  <!-- Declaration de la servlet -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+   <!-- Mapping de la servlet -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+     <!-- Declarations des pages accueils -->
+  <welcome-file-list>
+  	<welcome-file>home.xhtml</welcome-file>
+   <welcome-file>client/espace.xhtml</welcome-file>
+    <welcome-file>secured/espace.xhtml</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Declarations du debug et des icones -->
+    <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>primefaces.FONT_AWESOME</param-name>
+    <param-value>true</param-value>
+</context-param>
 </web-app>
