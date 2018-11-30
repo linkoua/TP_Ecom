@@ -13,29 +13,7 @@
 <h:body>
 <div class="box">
 	<p:tabView>
-		<p:tab title="Administrateur">
-			<h:form>
-				<p:outputLabel>
-					<h:panelGrid id="panel" columns="1" cellpadding="15">
-						<f:facet name="header">
-							<h:outputText value="Espace Administrateur" />
-						</f:facet>
-						<p:inputText styleClass="input-login" placeholder="Identifiant"
-							value="#{adMB.administrateur.mail}" />
-						<p:password styleClass="input-password" placeholder="Mot de passe"
-							value="#{adMB.administrateur.password}" />
-						<h:commandButton styleClass="buttonco" value="Connexion"
-							action="#{adMB.login}" />
-
-						<f:facet name="footer">
-							<h:panelGroup style="display:block; text-align:center">
-							</h:panelGroup>
-						</f:facet>
-
-					</h:panelGrid>
-				</p:outputLabel>
-			</h:form>
-		</p:tab>
+		
 
 		<p:tab title="Client">
 			<h:form>
@@ -51,6 +29,30 @@
 							value="#{clMB.client.password}" />
 						<h:commandButton styleClass="buttonge" value="Connexion"
 							action="#{cLMB.login}" />
+
+						<f:facet name="footer">
+							<h:panelGroup style="display:block; text-align:center">
+							</h:panelGroup>
+						</f:facet>
+
+					</h:panelGrid>
+				</p:outputLabel>
+			</h:form>
+		</p:tab>
+		
+		<p:tab title="Administrateur">
+			<h:form>
+				<p:outputLabel>
+					<h:panelGrid id="panel" columns="1" cellpadding="15">
+						<f:facet name="header">
+							<h:outputText value="Espace Administrateur" />
+						</f:facet>
+						<p:inputText styleClass="input-login" placeholder="Identifiant"
+							value="#{adMB.administrateur.mail}" />
+						<p:password styleClass="input-password" placeholder="Mot de passe"
+							value="#{adMB.administrateur.password}" />
+						<h:commandButton styleClass="buttonco" value="Connexion"
+							action="#{adMB.login}" />
 
 						<f:facet name="footer">
 							<h:panelGroup style="display:block; text-align:center">
