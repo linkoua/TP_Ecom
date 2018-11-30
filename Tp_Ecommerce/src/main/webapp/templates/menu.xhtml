@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<title>Menu</title>
@@ -17,7 +18,7 @@
 
 			<p:dock position="top">
 				<p:menuitem value="Catégorie" icon="/resources/images/category.png"
-					action="#{caMB.showCategories}" />
+					url="categoriesList.xhtml" />
 				<p:menuitem value="Produits" icon="/resources/images/product.png"
 					url="productlist.xhtml" />
 				<p:menuitem value="Chercher" icon="/resources/images/search.png"
