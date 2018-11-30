@@ -52,6 +52,16 @@ public class ClientManagedBean {
 	}
 
 // Les méthodes
+	public String suscribe() {
+		this.client=clService.addClient(this.client);
+		if(this.client!=null) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'inscription a été réalisée avec succès"));
+		return "/login.xhtml";}
+		else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Un problème a été rencontré"));
+			return "/login.xhtml";
+		}
+	}
 	public String login() {
 		System.out.println(client.getMail());
 		System.out.println(client.getPassword());

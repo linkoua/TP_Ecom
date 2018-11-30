@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Liste des produits</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="templates/layout.xhtml">
+		<ui:define name="Content">
+		
+		<h:form id="form">
+				<p:growl id="messages" />
+				   <p:dataScroller value="#{paMB.listlc}" var="lc">
+						<f:facet name="header">
+           				Mon panier
+        			</f:facet>
+
+						<h:panelGrid columns="3" style="width:100%"
+							columnClasses="logo,detail,logo">
+							<h:graphicImage value="#{pr.image}"
+								style="width: 100px; heigth: 100px" />
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Nom du produit:" />
+									<h:outputText value="#{lc.produit.designation}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Quantité:" />
+									<h:outputText value="#{lc.quantite}"
+										style="font-weight: bold" />
+
+									<h:outputText value="Prix:" />
+									<h:outputText value="#{lc.prix}" style="font-weight: bold" />
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</h:panelGrid>
+					</p:dataScroller>
+	
+					</h:form>
+					</ui:define>
+					</ui:composition>
+					</h:body>
+</html>

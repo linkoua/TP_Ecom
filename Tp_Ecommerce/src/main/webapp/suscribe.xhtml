@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Inscription Client</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="Content">
+<div class="contentdiv">
+	<h:form enctype="multipart/form-data">
+    <p:growl id="messages" showDetail="true" />
+	<h1 style="color: black; text-align: center">Formulaire d'inscription:</h1>
+    <h:panelGrid columns="1"  style="margin:auto; width:400px">
+    <h:outputText value="Nom: *"/>
+   	<p:inputText value="#{clMB.client.nom}" required="true" />
+   	<h:outputText value="Password: *"/>
+   	<p:inputText value="#{clMB.client.password}" required="true" />
+	<h:outputText value="Adresse: *"/>
+   	<p:inputText value="#{clMB.client.adresse}" required="true" />
+  	<h:outputText value="Mail: *"/>
+   	<p:inputText value="#{clMB.client.mail}" required="true" />
+	<h:outputText value="Téléphone: "/>
+   	<p:inputText value="#{clMB.client.tel}" />
+   	 <p:commandButton styleClass="buttonUp" value="Inscription" ajax="false" action="#{clMB.suscribe}" />
+    </h:panelGrid>
+</h:form>
+</div>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

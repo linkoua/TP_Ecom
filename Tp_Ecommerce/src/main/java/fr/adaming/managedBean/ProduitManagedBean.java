@@ -1,5 +1,6 @@
 package fr.adaming.managedBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -42,11 +43,15 @@ public class ProduitManagedBean {
 
 	private Produit produit, produitselected;
 	private List<Produit> listproduct;
-	private List<Produit> listproductSelect;
+	private List<Produit> listproductSearch;
 	private List<Produit> listproductTag;
 	private List<Categorie> listcategorie;
+	private String search;
 	private Panier panier;
+	private int searchid;
 	private Categorie categorie;
+	private boolean indice;
+	private boolean indicebis;
 	private boolean checkbox;
 	HttpSession maSession;
 
@@ -71,6 +76,7 @@ public class ProduitManagedBean {
 		this.panier= new Panier();
 		this.categorie= new Categorie();
 		this.listcategorie= caService.getAllCategories();
+		this.listproductSearch= new ArrayList<Produit>();
 	}
 
 	// Declaration des getters et des setters
@@ -82,8 +88,25 @@ public class ProduitManagedBean {
 		return produitselected;
 	}
 
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
 	public void setProduitselected(Produit produitselected) {
 		this.produitselected = produitselected;
+	}
+	
+
+	public int getSearchid() {
+		return searchid;
+	}
+
+	public void setSearchid(int searchid) {
+		this.searchid = searchid;
 	}
 
 	public void setProduit(Produit produit) {
@@ -98,6 +121,23 @@ public class ProduitManagedBean {
 		this.file = file;
 	}
 
+	public boolean isIndice() {
+		return indice;
+	}
+	
+
+	public boolean isIndicebis() {
+		return indicebis;
+	}
+
+	public void setIndicebis(boolean indicebis) {
+		this.indicebis = indicebis;
+	}
+
+	public void setIndice(boolean indice) {
+		this.indice = indice;
+	}
+
 	public List<Produit> getListproduct() {
 		return listproduct;
 	}
@@ -107,11 +147,11 @@ public class ProduitManagedBean {
 	}
 
 	public List<Produit> getListproductSelect() {
-		return listproductSelect;
+		return listproductSearch;
 	}
 
-	public void setListproductSelect(List<Produit> listproductSelect) {
-		this.listproductSelect = listproductSelect;
+	public void setListproductSearch(List<Produit> listproductSelect) {
+		this.listproductSearch = listproductSelect;
 	}
 
 	public List<Produit> getListproductTag() {
@@ -122,6 +162,10 @@ public class ProduitManagedBean {
 		this.listproductTag = listproductTag;
 	}
 
+
+	public List<Produit> getListproductSearch() {
+		return listproductSearch;
+	}
 
 	public boolean isCheckbox() {
 		return checkbox;
@@ -165,7 +209,6 @@ public class ProduitManagedBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload Failed"));
 		}
 		if (prService.addProduit(this.produit,this.categorie) != null) {
-			this.produit = prService.addProduit(this.produit,this.categorie);
 			// Mettre à jour la liste des produits
 			maSession.setAttribute("listPrSession", prService.getAllProduit());
 		} else {
@@ -219,13 +262,38 @@ public class ProduitManagedBean {
 	}
 
 	public String chercherProduit() {
-		if (prService.searchProduit(this.produit) != null) {
-			this.produit = prService.searchProduit(this.produit);
-			return "resultproduct.xhtml";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur lors de la recherche"));
+		  if(search != null) {
+		try
+		{
+		    searchid = Integer.parseInt(search);
+		    this.produit.setId(searchid);
+		    System.out.println(searchid);
+		    if (prService.searchProduit(this.produit)!=null) {
+		    	this.listproductSearch.add(prService.searchProduit(this.produit));
+		    	indice=true;
+		    	System.out.println(prService.searchProduit(this.produit));
+		    	return "resultproduct.xhtml";
+		    	
+		    } else {
+		    	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Aucun produit ne correspond a votre recherche"));
+				return "resultproduct.xhtml";
+		    }
+		    
+		}
+		catch (NumberFormatException e)
+		{
+			this.categorie.setNom(search);
+			System.out.println(search);
+			this.listcategorie=caService.getByName(this.categorie);
+			String[] searchtag = search.split(" ");
+			this.listproductSearch=prService.getAllProduitTag(searchtag);
+			indicebis=true;
 			return "resultproduct.xhtml";
 		}
+	} else {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Veuillez rentrer un input"));
+		return "resultproduct.xhtml";
+	}
 	}
 
 	public String modifierLien() {
