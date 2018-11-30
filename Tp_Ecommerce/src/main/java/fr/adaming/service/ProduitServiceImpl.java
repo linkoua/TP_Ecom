@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IProduitDAO;
+import fr.adaming.modele.Categorie;
 import fr.adaming.modele.Produit;
 
 @Service("prService")
@@ -19,12 +20,14 @@ public class ProduitServiceImpl implements IProduitService {
 	private IProduitDAO prDAO;
 
 	@Override
-	public Produit addProduit(Produit p) {
+	public Produit addProduit(Produit p, Categorie cat) {
+		p.setCategorie(cat);
 		return prDAO.addProduit(p);
 	}
 
 	@Override
-	public Produit modifyProduit(Produit p) {
+	public Produit modifyProduit(Produit p, Categorie cat) {
+		p.setCategorie(cat);
 		return prDAO.modifyProduit(p);
 	}
 

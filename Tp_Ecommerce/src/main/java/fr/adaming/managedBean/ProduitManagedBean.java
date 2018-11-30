@@ -5,12 +5,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.Transient;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.UploadedFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import fr.adaming.modele.Categorie;
 import fr.adaming.modele.LigneCommande;
@@ -24,16 +26,26 @@ import fr.adaming.service.IProduitService;
 public class ProduitManagedBean {
 
 	// Appel des services admin
+	@ManagedProperty(value="#{prService}")
 	private IProduitService prService;
+	@ManagedProperty(value="#{caService}")
 	private ICategorieService caService;
+		
+	public void setCaService(ICategorieService caService) {
+		this.caService = caService;
+	}
+
+	public void setPrService(IProduitService prService) {
+		this.prService = prService;
+	}
+
+
 	private Produit produit, produitselected;
 	private List<Produit> listproduct;
-	private List<Produit> listproductCat;
 	private List<Produit> listproductSelect;
 	private List<Produit> listproductTag;
 	private List<Categorie> listcategorie;
 	private Panier panier;
-	private LigneCommande lcommande;
 	private Categorie categorie;
 	private boolean checkbox;
 	HttpSession maSession;
@@ -52,19 +64,26 @@ public class ProduitManagedBean {
 	@PostConstruct
 	public void init() {
 		this.produit = new Produit();
-		this.produitselected = new Produit();
+		this.produitselected=new Produit();
 		// Récup session
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		this.listproduct = prService.getAllProduit();
-		this.lcommande= new LigneCommande();
 		this.panier= new Panier();
-		this.listcategorie= caService.getAllCategories();
 		this.categorie= new Categorie();
+		this.listcategorie= caService.getAllCategories();
 	}
 
 	// Declaration des getters et des setters
 	public Produit getProduit() {
 		return produit;
+	}
+
+	public Produit getProduitselected() {
+		return produitselected;
+	}
+
+	public void setProduitselected(Produit produitselected) {
+		this.produitselected = produitselected;
 	}
 
 	public void setProduit(Produit produit) {
@@ -87,14 +106,6 @@ public class ProduitManagedBean {
 		this.listproduct = listproduct;
 	}
 
-	public List<Produit> getListproductCat() {
-		return listproductCat;
-	}
-
-	public void setListproductCat(List<Produit> listproductCat) {
-		this.listproductCat = listproductCat;
-	}
-
 	public List<Produit> getListproductSelect() {
 		return listproductSelect;
 	}
@@ -111,9 +122,6 @@ public class ProduitManagedBean {
 		this.listproductTag = listproductTag;
 	}
 
-	public Produit getProduitselected() {
-		return produitselected;
-	} 
 
 	public boolean isCheckbox() {
 		return checkbox;
@@ -147,20 +155,17 @@ public class ProduitManagedBean {
 		this.listcategorie = listcategorie;
 	}
 
-	public void setProduitselected(Produit produitselected) {
-		this.produitselected = produitselected;
-	}
 
 	// Les méthodes du ManagedBean
 	public String ajouterProduit() {
-		this.produit.setCategorie(this.categorie);
+		this.categorie=caService.getById(categorie);
 		if (file != null) {
 			this.produit.setPhoto(file.getContents());
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload Failed"));
 		}
-		if (prService.addProduit(this.produit) != null) {
-			this.produit = prService.addProduit(this.produit);
+		if (prService.addProduit(this.produit,this.categorie) != null) {
+			this.produit = prService.addProduit(this.produit,this.categorie);
 			// Mettre à jour la liste des produits
 			maSession.setAttribute("listPrSession", prService.getAllProduit());
 		} else {
@@ -171,15 +176,15 @@ public class ProduitManagedBean {
 	}
 
 	public String modifierProduit() {
-		this.produit.setCategorie(this.categorie);
+		this.categorie=caService.getById(categorie);
 		if (this.checkbox==true) {
 		if (file != null) {
 			this.produit.setPhoto(file.getContents());
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload Failed"));
 		}
-		if (prService.addProduit(this.produit) != null) {
-			this.produit = prService.modifyProduit(this.produit);
+		if (prService.modifyProduit(this.produit,this.categorie) != null) {
+			this.produit = prService.modifyProduit(this.produit,this.categorie);
 			this.listproduct = prService.getAllProduit();
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur lors de l'ajout"));
@@ -190,8 +195,8 @@ public class ProduitManagedBean {
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Upload Failed"));
 			}
-			if (prService.addProduit(this.produit) != null) {
-				this.produit = prService.modifyProduit(this.produit);
+			if (prService.addProduit(this.produit,this.categorie) != null) {
+				this.produit = prService.modifyProduit(this.produit,this.categorie);
 				this.listproduct = prService.getAllProduit();
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erreur lors de l'ajout"));
@@ -222,17 +227,6 @@ public class ProduitManagedBean {
 			return "resultproduct.xhtml";
 		}
 	}
-
-	
-	public String ajouterPanier() {
-		lcommande.setProduit(produit);
-		lcommande.setPrix(produit.getPrix());
-		lcommande.setQuantite(1);
-		panier.setLcommande(lcommande);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit a correctement été ajouté au panier"));
-		return "productlist.xhtml";
-	}
-
 
 	public String modifierLien() {
 		return "updateproduct.xhtml";

@@ -19,10 +19,14 @@
     <h:panelGrid columns="1"  style="margin:auto; width:400px">
     <h:outputText value="Nom: *"/>
    	<p:inputText value="#{prMB.produit.designation}" required="true" />
-   	<h:outputText value="Categorie (ID): "/>
-	<p:inputText value="#{prMB.categorie.id}" />
+   	<h:outputText value="Categorie : "/>
+	<h:selectOneMenu styleClass="styled-select rounded grey" value="#{prMB.categorie.id}">
+		<f:selectItem itemLabel="Selectionner votre categorie" itemValue="" />
+		<f:selectItems value="#{prMB.listcategorie}"  var="categorie" itemLabel="#{categorie.nom}" itemValue="#{categorie.id}" />
+	</h:selectOneMenu>
    	<h:outputText value="Description: "/>
-	<p:inputText value="#{prMB.produit.descre}" />
+	<p:inputTextarea rows="5" cols="70"
+								autoResize="false" value="#{prMB.produit.descre}" />
 	<h:outputText value="Prix: *"/>
    	<p:inputText value="#{prMB.produit.prix}" required="true" />
    	<h:outputText value="Quantité: *"/>

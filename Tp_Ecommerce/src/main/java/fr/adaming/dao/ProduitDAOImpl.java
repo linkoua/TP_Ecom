@@ -26,7 +26,7 @@ public class ProduitDAOImpl implements IProduitDAO {
 	@Override
 	public Produit addProduit(Produit p) {
 		Session s = sf.getCurrentSession();
-		s.persist(p);
+		s.merge(p);
 		return p;
 
 	}
@@ -51,7 +51,7 @@ public class ProduitDAOImpl implements IProduitDAO {
 				Session s = sf.getCurrentSession();
 
 				// Requète HQL
-				String req = "DELETE FROM Produit p WHERE id_ca=:pId";
+				String req = "DELETE FROM Produit pr WHERE id_pr=:pId";
 
 				Query query = s.createQuery(req);
 
