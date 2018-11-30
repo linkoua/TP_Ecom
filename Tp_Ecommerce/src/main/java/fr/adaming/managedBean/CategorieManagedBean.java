@@ -330,9 +330,4 @@ public class CategorieManagedBean implements Serializable {
 	public void handleKeyEvent() {
 		categorie = caService.getById(categorie);
 	}
-
-	public void fillUpdate() {
-		categorie = caService.getById(categorie);
-	}
-
 }

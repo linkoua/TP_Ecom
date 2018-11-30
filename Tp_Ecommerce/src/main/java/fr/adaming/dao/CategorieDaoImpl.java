@@ -112,60 +112,64 @@ public class CategorieDaoImpl implements ICategorieDao {
 	@Override
 	public List<Categorie> getByName(Categorie ca) {
 
-//		String req = "SELECT ca FROM Categorie ca WHERE ca.nom LIKE :pNom";
-//
-//		Query query = em.createQuery(req);
-//
-//		// Construction de la chaine de caractère
-//		String name = "%" + ca.getNom() + "%";
-//
-//		// Assigner les paramètres à la requète
-//		query.setParameter("pNom", name);
-//
-//		// FOR ELEMENT LIST set image
-//		List<Categorie> listIn = query.getResultList();
-//		List<Categorie> listOut = new ArrayList<Categorie>();
-//		if (listIn != null) {
-//			for (Categorie elem : listIn) {
-//				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
-//				listOut.add(elem);
-//			}
-//			return listOut;
-//		} else {
-//
-//			return listIn;
-//		}
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
 
-		return null;
+		String req = "FROM Categorie ca WHERE ca.nom LIKE :pNom";
+
+		Query query = s.createQuery(req);
+
+		// Construction de la chaine de caractère
+		String name = "%" + ca.getNom() + "%";
+
+		// Assigner les paramètres à la requète
+		query.setParameter("pNom", name);
+
+		// FOR ELEMENT LIST set image
+		List<Categorie> listIn = query.list();
+		List<Categorie> listOut = new ArrayList<Categorie>();
+		if (listIn != null) {
+			for (Categorie elem : listIn) {
+				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
+				listOut.add(elem);
+			}
+			return listOut;
+		} else {
+
+			return listIn;
+		}
+
 	}
 
 	@Override
 	public List<Categorie> getByMotCle(String motCle) {
 
-//		String req = "SELECT ca FROM Categorie ca WHERE ca.descre LIKE :pDescre";
-//
-//		Query query = em.createQuery(req);
-//
-//		// Construction de la chaine de caractère
-//		motCle = "%" + motCle + "%";
-//
-//		// Assigner les paramètres à la requète
-//		query.setParameter("pDescre", motCle);
-//
-//		// FOR ELEMENT LIST set image
-//		List<Categorie> listIn = query.getResultList();
-//		List<Categorie> listOut = new ArrayList<Categorie>();
-//		if (listIn != null) {
-//			for (Categorie elem : listIn) {
-//				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
-//				listOut.add(elem);
-//			}
-//			return listOut;
-//		} else {
-//
-//			return listIn;
-//		}
-		return null;
+		// Ouvrir une session
+		Session s = sf.getCurrentSession();
+
+		String req = "FROM Categorie ca WHERE ca.descre LIKE :pDescre";
+
+		Query query = s.createQuery(req);
+
+		// Construction de la chaine de caractère
+		motCle = "%" + motCle + "%";
+
+		// Assigner les paramètres à la requète
+		query.setParameter("pDescre", motCle);
+
+		// FOR ELEMENT LIST set image
+		List<Categorie> listIn = query.list();
+		List<Categorie> listOut = new ArrayList<Categorie>();
+		if (listIn != null) {
+			for (Categorie elem : listIn) {
+				elem.setImage("data:image/png;base64," + Base64.encodeBase64String(elem.getPhoto()));
+				listOut.add(elem);
+			}
+			return listOut;
+		} else {
+
+			return listIn;
+		}
 	}
 
 }

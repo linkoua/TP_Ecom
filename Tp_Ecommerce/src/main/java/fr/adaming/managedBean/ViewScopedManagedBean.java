@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -24,6 +25,20 @@ import fr.adaming.service.IProduitService;
 @ViewScoped
 public class ViewScopedManagedBean implements Serializable {
 
+	// Transformation de l'association UML en JAVA
+	@ManagedProperty(value = "#{caService}")
+	private ICategorieService caService;
+	@ManagedProperty(value = "#{prService}")
+	private IProduitService prService;
+
+	public void setCaService(ICategorieService caService) {
+		this.caService = caService;
+	}
+
+	public void setPrService(IProduitService prService) {
+		this.prService = prService;
+	}
+
 	// Attribut
 	private Produit produit;
 	private Categorie categorie;
@@ -33,9 +48,13 @@ public class ViewScopedManagedBean implements Serializable {
 	private List<Categorie> resultListCa;
 	private Set<Categorie> resultSetCa;
 
-	private boolean indiceSearchId;
-	private boolean indiceSearchNom;
-	private boolean indiceSearchMotCle;
+	private boolean indiceCaId;
+	private boolean indiceCaNom;
+	private boolean indiceCaMotCle;
+
+	private boolean indicePrId;
+	private boolean indicePrCa;
+	private boolean indicePrMotCle;
 
 	private boolean indiceTablePrId;
 	private boolean indiceTablePrCat;
@@ -47,18 +66,6 @@ public class ViewScopedManagedBean implements Serializable {
 
 	private String selectedItem;
 	private List<SelectItem> items;
-
-	private boolean indiceCaId;
-	private boolean indiceCaNom;
-	private boolean indiceCaMotCle;
-
-	private boolean indicePrId;
-	private boolean indicePrCa;
-	private boolean indicePrMotCle;
-
-	// Transformation de l'association UML
-	private ICategorieService caService;
-	private IProduitService prService;
 
 	// Builder
 	public ViewScopedManagedBean() {
@@ -121,30 +128,6 @@ public class ViewScopedManagedBean implements Serializable {
 
 	public void setResultSetCa(Set<Categorie> resultSetCa) {
 		this.resultSetCa = resultSetCa;
-	}
-
-	public boolean isIndiceSearchId() {
-		return indiceSearchId;
-	}
-
-	public void setIndiceSearchId(boolean indiceSearchId) {
-		this.indiceSearchId = indiceSearchId;
-	}
-
-	public boolean isIndiceSearchNom() {
-		return indiceSearchNom;
-	}
-
-	public void setIndiceSearchNom(boolean indiceSearchNom) {
-		this.indiceSearchNom = indiceSearchNom;
-	}
-
-	public boolean isIndiceSearchMotCle() {
-		return indiceSearchMotCle;
-	}
-
-	public void setIndiceSearchMotCle(boolean indiceSearchMotCle) {
-		this.indiceSearchMotCle = indiceSearchMotCle;
 	}
 
 	public boolean isIndiceTablePrId() {
@@ -287,33 +270,33 @@ public class ViewScopedManagedBean implements Serializable {
 		items.add(g2);
 	}
 
-	public void changeSearch(ValueChangeEvent event) {
+	public void changeCaSearch(ValueChangeEvent event) {
 
 		String newVal = event.getNewValue().toString();
 
 		if (newVal.equals("ID")) {
 
-			indiceSearchId = true;
-			indiceSearchNom = false;
-			indiceSearchMotCle = false;
+			indiceCaId = true;
+			indiceCaNom = false;
+			indiceCaMotCle = false;
 
 		} else if (newVal.equals("Nom")) {
 
-			indiceSearchId = false;
-			indiceSearchNom = true;
-			indiceSearchMotCle = false;
+			indiceCaId = false;
+			indiceCaNom = true;
+			indiceCaMotCle = false;
 
 		} else if (newVal.equals("MotCle")) {
 
-			indiceSearchId = false;
-			indiceSearchNom = false;
-			indiceSearchMotCle = true;
+			indiceCaId = false;
+			indiceCaNom = false;
+			indiceCaMotCle = true;
 
 		} else {
 
-			indiceSearchId = false;
-			indiceSearchNom = false;
-			indiceSearchMotCle = false;
+			indiceCaId = false;
+			indiceCaNom = false;
+			indiceCaMotCle = false;
 
 		}
 
@@ -434,7 +417,6 @@ public class ViewScopedManagedBean implements Serializable {
 		}
 
 	}
-
 
 	public void searchPrByMotCle() {
 

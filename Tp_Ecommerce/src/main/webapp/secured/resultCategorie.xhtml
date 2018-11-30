@@ -20,35 +20,36 @@
 						catégorie:</h1>
 					<h:panelGrid columns="1" style="margin:auto; width:500px">
 						<h:outputText value="Rechercher par :" />
-						<p:selectOneButton valueChangeListener="#{vsMB.changeSearch}">
+						<p:selectOneButton valueChangeListener="#{vsMB.changeCaSearch}">
 							<f:selectItem itemLabel="Id catégorie" itemValue="ID" />
 							<f:selectItem itemLabel="Nom  de catégorie" itemValue="Nom" />
 							<f:selectItem itemLabel="Mots clés" itemValue="MotCle" />
 							<f:ajax event="change" render="@form" />
 						</p:selectOneButton>
 
-						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchId}"
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceCaId}"
 							style="margin:auto; text-align:center;">
 							<p:inputNumber label="Recherche id" decimalPlaces="0"
 								placeholder="Entrer un id" value="#{vsMB.categorie.id}" />
 							<p:commandButton id="searchId" value="Rechercher"
-								icon="fa fa-search" action="#{vsMB.searchById}" update="form" />
+								icon="fa fa-search" action="#{vsMB.searchCaById}" update="form" />
 						</h:panelGrid>
 
-						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchNom}"
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceCaNom}"
 							style="margin:auto; text-align:center;">
 							<p:inputText label="Recherche nom" placeholder="Entrer un nom"
 								value="#{vsMB.categorie.nom}" />
 							<p:commandButton id="searchNom" value="Rechercher"
-								icon="fa fa-search" action="#{vsMB.searchByName}" update="form" />
+								icon="fa fa-search" action="#{vsMB.searchCaByName}"
+								update="form" />
 						</h:panelGrid>
 
-						<h:panelGrid columns="2" rendered="#{vsMB.indiceSearchMotCle}"
+						<h:panelGrid columns="2" rendered="#{vsMB.indiceCaMotCle}"
 							style="margin:auto; text-align:center;">
 							<p:inputText label="Recherche mots clés"
 								placeholder="Entrer mots clés" value="#{vsMB.motCle}" />
 							<p:commandButton id="searchMotCle" value="Rechercher"
-								icon="fa fa-search" action="#{vsMB.searchByMotCle}"
+								icon="fa fa-search" action="#{vsMB.searchCaByMotCle}"
 								update="form" />
 						</h:panelGrid>
 					</h:panelGrid>
@@ -57,13 +58,13 @@
 				<p:spacer />
 
 				<p:dataScroller value="#{vsMB.categorie}" var="ca" chunkSize="10"
-					rendered="#{vsMB.indiceTableId}">
+					rendered="#{vsMB.indiceTableCaId}">
 					<f:facet name="header">
            				Resultats de la recherche par ID
         			</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
 
@@ -72,37 +73,28 @@
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
-								<h:outputText value="Derscription:" />
+								<h:outputText value="Description:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:outputPanel>
 							<p:commandButton icon="btnDelete" title="Supprimer catégorie"
-								styleClass="iconOnlyButton" action="#{caMB.deleteCategorie}">
+								styleClass="iconOnlyButton" update=":form:deleteConfirm"
+								oncomplete="PF('delDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
-								<p:confirm header="Confirmer la suppression"
-									message="Supprimer la catégorie #{caMB.categorie.nom}: Êtes-vous sûr?"
-									icon="fa fa-warning" />
 							</p:commandButton>
-							<p:confirmDialog global="true">
-								<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
-									type="button" icon="fa fa-check" />
-								<p:commandButton value="Non" styleClass="ui-confirmdialog-no"
-									type="button" icon="fa fa-times" />
-							</p:confirmDialog>
 							<p:commandButton title="Modifier catégorie" icon="btnModify"
 								styleClass="iconOnlyButton" action="#{caMB.linkUpdate}"
 								ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégories" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -111,7 +103,7 @@
 				</p:dataScroller>
 
 				<p:dataScroller value="#{vsMB.resultListCa}" var="ca" chunkSize="10"
-					rendered="#{vsMB.indiceTableNom}">
+					rendered="#{vsMB.indiceTableCaNom}">
 					<f:facet name="header">
            					Resultats de la recherche par nom
         				</f:facet>
@@ -122,7 +114,7 @@
 					</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
 
@@ -131,23 +123,28 @@
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
-								<h:outputText value="Derscription:" />
+								<h:outputText value="Description:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:outputPanel>
+							<p:commandButton icon="btnDelete" title="Supprimer catégorie"
+								styleClass="iconOnlyButton" update=":form:deleteConfirm"
+								oncomplete="PF('delDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
 							<p:commandButton title="Modifier catégorie" icon="btnModify"
 								styleClass="iconOnlyButton" action="#{caMB.linkUpdate}"
 								ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégories" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -157,7 +154,7 @@
 				</p:dataScroller>
 
 				<p:dataScroller value="#{vsMB.resultSetCa}" var="ca" chunkSize="10"
-					rendered="#{vsMB.indiceTableMotCle}">
+					rendered="#{vsMB.indiceTableCaMotCle}">
 					<f:facet name="header">
            					Resultats de la recherche par mots clés
         				</f:facet>
@@ -168,32 +165,36 @@
 					</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
-
 						<p:outputPanel>
 							<h:panelGrid columns="2" cellpadding="5">
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
 								<h:outputText value="Derscription:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:outputPanel>
+							<p:commandButton icon="btnDelete" title="Supprimer catégorie"
+								styleClass="iconOnlyButton" update=":form:deleteConfirm"
+								oncomplete="PF('delDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
 							<p:commandButton title="Modifier catégorie" icon="btnModify"
 								styleClass="iconOnlyButton" action="#{caMB.linkUpdate}"
 								ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégories" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -202,23 +203,62 @@
 					<p:separator />
 				</p:dataScroller>
 
-				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
-					showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dialog id="InfoCatDial" header="Catégorie Info"
+					widgetVar="caDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
 					<p:outputPanel id="caDetail" style="text-align:center;">
 						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
 							<h:graphicImage value="#{caMB.categorie.image}" />
 							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
 								style="width:100%;" columnClasses="label,value">
-
 								<h:outputText value="Référence:" />
-								<h:outputText value="#{caMB.categorie.id}" />
+								<h:outputText value="#REF.8000#{caMB.categorie.id}" />
 								<h:outputText value="Nom" />
 								<h:outputText value="#{caMB.categorie.nom}" />
 							</p:panelGrid>
 							<h:outputText value="Description:" />
 							<h:outputText value="#{caMB.categorie.descre}" />
+							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
+								style="width:100%;" columnClasses="label,value">
+								<h:outputText value="Nombre de produit" />
+								<h:outputText value="#{caMB.categorie.listep.size()}" />
+							</p:panelGrid>
 						</p:panelGrid>
 					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog id="SupprProduitCatDial" header="Confirmer la suppression"
+					widgetVar="delDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+					<p:outputPanel id="deleteConfirm">
+						<p:outputPanel style="text-align:left;">
+							<p:outputLabel value="Suppression de la catégorie :" />
+							<p:outputLabel style="font-weight: bold"
+								value=" #{sessionScope.caSession.nom}" />
+							<br />
+							<br />
+							<p:outputLabel
+								rendered="#{not empty sessionScope.caSession.listep}"
+								value="ATTENTION: " />
+							<br />
+							<p:outputLabel
+								rendered="#{not empty sessionScope.caSession.listep}"
+								value="La suppression de la catégorie entrainera egalement la suppression de tous ses produits(#{sessionScope.caSession.listep.size()})!" />
+						</p:outputPanel>
+						<p:outputPanel style="text-align:right;">
+							<br />
+							<p:outputLabel value="Êtes-vous sûr ? " />
+							<p:spacer width="50" height="20" />
+							<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
+								icon="fa fa-check" action="#{caMB.deleteCategorie}" ajax="false">
+								<f:setPropertyActionListener value="#{sessionScope.caSession}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton value="Non" styleClass="ui-confirmdialog-no"
+								icon="fa fa-times" action="#{caMB.cancelDelete}" ajax="false" />
+						</p:outputPanel>
+					</p:outputPanel>
+					<p:ajax event="close" listener="#{caMB.cancelDelete}" />
 				</p:dialog>
 
 			</h:form>
