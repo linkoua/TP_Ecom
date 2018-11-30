@@ -12,7 +12,24 @@
 <h:body>
 
 	<ui:composition>
+<div class="headerlogo"><h:graphicImage url="/resources/images/logo.png"/></div>
+<div class="researchheader">
+<h:form enctype="multipart/form-data">
+		<p:growl id="growl" showDetail="true" />
+						<h:panelGrid columns="2" style="margin:auto;">
+						<p:inputText label="Recherche Générale"
+									placeholder="Chercher un produit"
+									value="#{prMB.search}" />
+		<p:commandButton styleClass="iconOnlyButton"
+									icon="fa fa-search" action="#{prMB.chercherProduit}" update="growl"  />
+	</h:panelGrid>
+	</h:form>
+	</div>
+	<div class="panier">
+<div class="paniertext"> <h:outputText value="#{paMB.listlc.size()}"/></div>
+<div class="panierimg"><h:graphicImage url="/resources/images/bag.png"/></div>
 
+</div>
 	</ui:composition>
 </h:body>
 </html>
