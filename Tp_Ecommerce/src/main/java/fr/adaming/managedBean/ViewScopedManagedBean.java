@@ -372,10 +372,6 @@ public class ViewScopedManagedBean implements Serializable {
 			// instanciation du set
 			resultSetCa = new HashSet<Categorie>(resultListCa);
 
-			for (Categorie elem : resultSetCa) {
-				System.out.println(elem.getId());
-			}
-
 		} else {
 
 			// Cacher tous les tableaux de résultats
@@ -433,10 +429,6 @@ public class ViewScopedManagedBean implements Serializable {
 
 			// instanciation du set
 			resultSetPr = new HashSet<Produit>(resultListPr);
-
-			for (Produit elem : resultSetPr) {
-				System.out.println(elem.getId());
-			}
 
 		} else {
 

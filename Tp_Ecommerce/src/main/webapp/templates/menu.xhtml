@@ -16,18 +16,31 @@
 	<ui:composition>
 		<h:form>
 
-			<p:dock position="top">
-				<p:menuitem value="Catégorie" icon="/resources/images/category.png"
-					url="categoriesList.xhtml" />
-				<p:menuitem value="Produits" icon="/resources/images/product.png"
-					url="productlist.xhtml" />
-				<p:menuitem value="Chercher" icon="/resources/images/search.png"
+			<p:menu toggleable="true">
+				<p:menuitem value="Connexion" icon="fa fa-sign-in" url="login.xhtml" />
+				<p:menuitem value="Recherche" icon="fa fa-search"
 					url="recherche.xhtml" />
-				<p:menuitem value="Panier" icon="/resources/images/cart.png"
-					url="http://www.primefaces.org" />
-				<p:menuitem value="Login" icon="/resources/images/login.png"
-					url="login.xhtml" />
-			</p:dock>
+				<p:menuitem value="Panier" icon="fa fa-shopping-cart" />
+
+				<p:submenu label="Client" icon="fa fa-user">
+					<p:menuitem value="Mon compte" icon="fa fa-bank" />
+					<p:menuitem value="Se déconnecter" icon="fa fa-sign-out" />
+				</p:submenu>
+
+				<p:submenu label="Catégories" icon="fa fa-steam-square">
+					<c:forEach var="ca" items="#{caMB.listCa}">
+						<p:menuitem value="#{ca.nom}" />
+					</c:forEach>
+					<p:separator />
+					<p:menuitem value="Afficher toutes les catégories"
+						url="categoriesList.xhtml" />
+				</p:submenu>
+
+				<p:submenu label="Produits" icon="fa fa-gamepad">
+					<p:menuitem value="Afficher tous les produits"
+						url="productlist.xhtml" />
+				</p:submenu>
+			</p:menu>
 
 		</h:form>
 	</ui:composition>

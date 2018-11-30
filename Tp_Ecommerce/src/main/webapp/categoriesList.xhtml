@@ -13,56 +13,65 @@
 		<ui:define name="Content">
 			<br />
 			<h:form id="form">
-				<p:dataTable var="ca" value="#{caMB.listCa}" paginator="true"
-					rows="10" resizableColumns="true" style="width: 90%; margin : auto"
-					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-					rowsPerPageTemplate="5,10,15" id="caTable" lazy="true">
 
-					<p:column style="width: 120px" headerText="Id" sortBy="#{ca.id}"
-						filterBy="#{ca.id}" filterStyle="width: 95%">
-						<h:outputText value="#REF.8000#{ca.id}" />
-					</p:column>
-					<p:column style="width: 240px" headerText="Nom" sortBy="#{ca.nom}"
-						filterBy="#{ca.nom}" filterStyle="width: 95%">
-						<h:outputText value="#{ca.nom}" />
-					</p:column>
-					<p:column headerText="Description" sortBy="#{ca.descre}"
-						filterBy="#{ca.descre}" filterStyle="width: 95%">
-						<h:outputText value="#{ca.descre}" />
-					</p:column>
-					<p:column style="width: 110px" headerText="Photo">
+				<p:dataScroller value="#{caMB.listCa}" var="ca" chunkSize="10">
+					<f:facet name="header">
+           				Liste des catégories
+        			</f:facet>
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
-					</p:column>
-					<p:column style="width: 90px">
-						<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-							update=":form:caDetail" oncomplete="PF('caDialog').show()">
-							<f:setPropertyActionListener value="#{ca}"
-								target="#{caMB.categorie}" />
-						</p:commandButton>
-						<p:commandButton title="Ajouter au panier" icon="btnCart"
-							styleClass="iconOnlyButton" ajax="false">
-							<f:setPropertyActionListener value="#{ca}"
-								target="#{caMB.categorie}" />
-						</p:commandButton>
-					</p:column>
-				</p:dataTable>
 
-				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
-					showEffect="fade" hideEffect="fade" resizable="false">
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Référence:" />
+								<h:outputText value="#REF.8000#{ca.id}"
+									style="font-weight: bold" />
+								<h:outputText value="Nom:" />
+								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
+								<h:outputText value="Description:" />
+								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:outputPanel>
+							<p:commandButton title="Détail catégorie" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+							<p:commandButton title="Afficher produits de la catégorie"
+								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
+								<f:setPropertyActionListener value="#{ca}"
+									target="#{caMB.categorie}" />
+							</p:commandButton>
+						</p:outputPanel>
+					</h:panelGrid>
+					<p:separator />
+				</p:dataScroller>
+
+				<p:dialog id="InfoCatDial" header="Catégorie Info"
+					widgetVar="caDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
 					<p:outputPanel id="caDetail" style="text-align:center;">
 						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
 							<h:graphicImage value="#{caMB.categorie.image}" />
 							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
 								style="width:100%;" columnClasses="label,value">
-
 								<h:outputText value="Référence:" />
-								<h:outputText value="#{caMB.categorie.id}" />
+								<h:outputText value="#REF.8000#{caMB.categorie.id}" />
 								<h:outputText value="Nom" />
 								<h:outputText value="#{caMB.categorie.nom}" />
 							</p:panelGrid>
 							<h:outputText value="Description:" />
 							<h:outputText value="#{caMB.categorie.descre}" />
+							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
+								style="width:100%;" columnClasses="label,value">
+								<h:outputText value="Nombre de produit" />
+								<h:outputText value="#{caMB.categorie.listep.size()}" />
+							</p:panelGrid>
 						</p:panelGrid>
 					</p:outputPanel>
 				</p:dialog>

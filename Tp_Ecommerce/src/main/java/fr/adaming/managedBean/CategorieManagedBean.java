@@ -213,7 +213,7 @@ public class CategorieManagedBean implements Serializable {
 		// Récup l'admin de la session
 		admin = (Administrateur) maSession.getAttribute("adSession");
 
-		listCa = (List<Categorie>) maSession.getAttribute("listCaSession");
+		listCa = caService.getAllCategories();
 
 	}
 
@@ -321,10 +321,6 @@ public class CategorieManagedBean implements Serializable {
 		maSession.setAttribute("caSession", null);
 
 		return "listCategories";
-	}
-
-	public String showCategories() {
-		return "categoriesList";
 	}
 
 	public void handleKeyEvent() {

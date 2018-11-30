@@ -1,5 +1,7 @@
 package fr.adaming.managedBean;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import fr.adaming.modele.Administrateur;
+import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 import fr.adaming.service.IAdminService;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
@@ -77,15 +81,15 @@ public class AdminManagedBean {
 		Administrateur aOut = adService.isExist(this.administrateur);
 
 		if (aOut != null) {
+			List<Categorie> listeCat = caService.getAllCategories();
+			List<Produit> listePro = prService.getAllProduit();
 
 			// Le mettre dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adSession", aOut);
 
 			// Mettre la liste des catégories et des produits dans la session
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listCaSession",
-					caService.getAllCategories());
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listPrSession",
-					prService.getAllProduit());
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listCaSession", listeCat);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listPrSession", listePro);
 
 			// Acceptation du logIn (boolean true)
 			// Utilisation de la méthode de redirection

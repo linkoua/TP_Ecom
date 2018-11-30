@@ -83,17 +83,18 @@
 						</h:panelGrid>
 
 					</h:panelGrid>
-
 				</div>
+
+				<p:spacer />
 
 				<p:dataScroller value="#{vsMB.categorie}" var="ca" chunkSize="10"
 					rendered="#{vsMB.indiceTableCaId}">
 					<f:facet name="header">
-           				Resultats de la recherche par ID
+           				Resultats de la recherche de catégories par ID
         			</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
 
@@ -102,33 +103,33 @@
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
-								<h:outputText value="Derscription:" />
+								<h:outputText value="Description:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:outputPanel>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégorie" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton title="Ajouter au panier" icon="btnCart"
-								styleClass="iconOnlyButton" ajax="false">
+							<p:commandButton title="Afficher produits de la catégorie"
+								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
 						</p:outputPanel>
 					</h:panelGrid>
+					<p:separator />
 				</p:dataScroller>
 
 				<p:dataScroller value="#{vsMB.resultListCa}" var="ca" chunkSize="10"
 					rendered="#{vsMB.indiceTableCaNom}">
 					<f:facet name="header">
-           					Resultats de la recherche par nom
+           					Resultats de la recherche de catégories par nom
         				</f:facet>
 
 					<f:facet name="loader">
@@ -137,32 +138,30 @@
 					</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
 
 						<p:outputPanel>
-							<h:panelGrid style="width: 800px" columns="2" cellpadding="5">
+							<h:panelGrid columns="2" cellpadding="5">
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
-								<h:outputText value="Derscription:" />
+								<h:outputText value="Description:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
-
 						<p:outputPanel>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégorie" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton title="Ajouter au panier" icon="btnCart"
-								styleClass="iconOnlyButton" ajax="false">
+							<p:commandButton title="Afficher produits de la catégorie"
+								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -174,7 +173,7 @@
 				<p:dataScroller value="#{vsMB.resultSetCa}" var="ca" chunkSize="10"
 					rendered="#{vsMB.indiceTableCaMotCle}">
 					<f:facet name="header">
-           					Resultats de la recherche par mots clés
+           					Resultats de la recherche de catégorie par mots clés
         				</f:facet>
 
 					<f:facet name="loader">
@@ -183,31 +182,29 @@
 					</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail,logo">
+						columnClasses="logo,detail,but">
 						<h:graphicImage value="#{ca.image}"
 							style="width: 100px; heigth: 100px" />
-
 						<p:outputPanel>
-							<h:panelGrid style="width: 800px" columns="2" cellpadding="5">
+							<h:panelGrid columns="2" cellpadding="5">
 								<h:outputText value="Référence:" />
 								<h:outputText value="#REF.8000#{ca.id}"
 									style="font-weight: bold" />
-
 								<h:outputText value="Nom:" />
 								<h:outputText value="#{ca.nom}" style="font-weight: bold" />
-
 								<h:outputText value="Derscription:" />
 								<h:outputText value="#{ca.descre}" style="font-weight: bold" />
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:outputPanel>
-							<p:commandButton icon="btnView" styleClass="iconOnlyButton"
-								update=":form:caDetail" oncomplete="PF('caDialog').show()">
+							<p:commandButton title="Détail catégorie" icon="btnView"
+								styleClass="iconOnlyButton" update=":form:caDetail"
+								oncomplete="PF('caDialog').show()">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
-							<p:commandButton title="Ajouter au panier" icon="btnCart"
-								styleClass="iconOnlyButton" ajax="false">
+							<p:commandButton title="Afficher produits de la catégorie"
+								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -219,7 +216,7 @@
 				<p:dataScroller value="#{vsMB.produit}" var="pr" chunkSize="10"
 					rendered="#{vsMB.indiceTablePrId}">
 					<f:facet name="header">
-           				Resultats de la recherche par ID
+           				Resultats de la recherche de produit par ID
         			</f:facet>
 
 					<h:panelGrid columns="3" style="width:100%"
@@ -256,7 +253,7 @@
 				<p:dataScroller value="#{vsMB.resultListPr}" var="pr" chunkSize="10"
 					rendered="#{vsMB.indiceTablePrCat}">
 					<f:facet name="header">
-           					Resultats de la recherche par Categorie
+           					Resultats de la recherche de produit par categorie
         				</f:facet>
 
 					<f:facet name="loader">
@@ -300,7 +297,7 @@
 				<p:dataScroller value="#{vsMB.resultSetPr}" var="pr" chunkSize="10"
 					rendered="#{vsMB.indiceTablePrMotCle}">
 					<f:facet name="header">
-           					Resultats de la recherche par mots clés
+           					Resultats de la recherche de produit par mots clés
         				</f:facet>
 
 					<f:facet name="loader">
@@ -341,28 +338,29 @@
 					<p:separator />
 				</p:dataScroller>
 
-				<p:dialog header="Catégorie Info" widgetVar="caDialog" modal="true"
-					showEffect="fade" hideEffect="fade" resizable="false">
+				<p:dialog id="InfoCatDial" header="Catégorie Info"
+					widgetVar="caDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
 					<p:outputPanel id="caDetail" style="text-align:center;">
 						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
 							<h:graphicImage value="#{caMB.categorie.image}" />
 							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
 								style="width:100%;" columnClasses="label,value">
-
 								<h:outputText value="Référence:" />
-								<h:outputText value="#{caMB.categorie.id}" />
+								<h:outputText value="#REF.8000#{caMB.categorie.id}" />
 								<h:outputText value="Nom" />
 								<h:outputText value="#{caMB.categorie.nom}" />
 							</p:panelGrid>
 							<h:outputText value="Description:" />
 							<h:outputText value="#{caMB.categorie.descre}" />
+							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
+								style="width:100%;" columnClasses="label,value">
+								<h:outputText value="Nombre de produit" />
+								<h:outputText value="#{caMB.categorie.listep.size()}" />
+							</p:panelGrid>
 						</p:panelGrid>
 					</p:outputPanel>
 				</p:dialog>
-
-
-
-
 			</h:form>
 
 		</ui:define>
