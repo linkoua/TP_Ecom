@@ -209,9 +209,13 @@ public class CategorieManagedBean implements Serializable {
 
 		// Récup le session en cours
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-
-		// Récup l'admin de la session
-		admin = (Administrateur) maSession.getAttribute("adSession");
+		try {
+			// Récup l'admin de la session
+			admin = (Administrateur) maSession.getAttribute("adSession");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			admin = new Administrateur();
+		}
 
 		listCa = caService.getAllCategories();
 

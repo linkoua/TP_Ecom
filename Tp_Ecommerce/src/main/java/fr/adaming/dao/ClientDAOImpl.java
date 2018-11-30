@@ -47,13 +47,13 @@ public class ClientDAOImpl implements IClientDAO {
 	public Client isExist(Client c) {
 		Session s = sf.getCurrentSession();
 		// Requete HQL
-		String req="SELECT Client c WHERE c.mail=:pMail AND c.password=:pPässword";
+		String req = "FROM Client cl WHERE cl.mail=:pMail AND cl.password=:pPassword";
 		Query query = s.createQuery(req);
 
 		// Assignation des valeurs aux param
 		query.setParameter("pMail", c.getMail());
 		query.setParameter("pPassword", c.getPassword());
-		
+
 		return (Client) query.uniqueResult();
 	}
 }

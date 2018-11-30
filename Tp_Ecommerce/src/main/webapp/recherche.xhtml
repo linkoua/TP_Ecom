@@ -21,8 +21,7 @@
 						<p:selectOneMenu id="search" style="margin:auto; width:500px"
 							value="#{vsMB.selectedItem}"
 							valueChangeListener="#{vsMB.selectedSearch}">
-							<f:selectItem itemLabel="Selectionner
-						votre recherche"
+							<f:selectItem itemLabel="Selectionner votre recherche"
 								itemValue="EMPTY" />
 							<f:selectItems value="#{vsMB.items}" />
 							<f:ajax event="change" render="form" />
@@ -67,7 +66,7 @@
 							style="margin:auto; text-align:center;">
 							<p:inputText label="Recherche par Categorie(ID)"
 								placeholder="Entrer l'ID de la categorie"
-								value="#{vsMB.produit.categorie.id}" />
+								value="#{vsMB.categorie.id}" />
 							<p:commandButton id="searchCategorie" value="Rechercher"
 								icon="fa fa-search" action="#{vsMB.searchPrByCategorie}"
 								update="form" />
@@ -117,9 +116,9 @@
 									target="#{caMB.categorie}" />
 							</p:commandButton>
 							<p:commandButton title="Afficher produits de la catégorie"
-								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
-								<f:setPropertyActionListener value="#{ca}"
-									target="#{caMB.categorie}" />
+								icon="btnProduct" styleClass="iconOnlyButton"
+								action="#{vsMB.linkSearchProduitByCat}" ajax="false">
+								<f:setPropertyActionListener />
 							</p:commandButton>
 						</p:outputPanel>
 					</h:panelGrid>
@@ -161,9 +160,9 @@
 									target="#{caMB.categorie}" />
 							</p:commandButton>
 							<p:commandButton title="Afficher produits de la catégorie"
-								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
-								<f:setPropertyActionListener value="#{ca}"
-									target="#{caMB.categorie}" />
+								icon="btnProduct" styleClass="iconOnlyButton"
+								action="#{vsMB.linkSearchProduitByCat}" ajax="false">
+								<f:setPropertyActionListener />
 							</p:commandButton>
 						</p:outputPanel>
 					</h:panelGrid>
@@ -204,9 +203,9 @@
 									target="#{caMB.categorie}" />
 							</p:commandButton>
 							<p:commandButton title="Afficher produits de la catégorie"
-								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
-								<f:setPropertyActionListener value="#{ca}"
-									target="#{caMB.categorie}" />
+								icon="btnProduct" styleClass="iconOnlyButton"
+								action="#{vsMB.linkSearchProduitByCat}" ajax="false">
+								<f:setPropertyActionListener />
 							</p:commandButton>
 						</p:outputPanel>
 					</h:panelGrid>
@@ -250,8 +249,8 @@
 					</h:panelGrid>
 				</p:dataScroller>
 
-				<p:dataScroller value="#{vsMB.resultListPr}" var="pr" chunkSize="10"
-					rendered="#{vsMB.indiceTablePrCat}">
+				<p:dataScroller value="#{vsMB.categorie.listep}" var="pr"
+					chunkSize="10" rendered="#{vsMB.indiceTablePrCat}">
 					<f:facet name="header">
            					Resultats de la recherche de produit par categorie
         				</f:facet>

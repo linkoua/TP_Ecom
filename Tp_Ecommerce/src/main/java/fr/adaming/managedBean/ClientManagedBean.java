@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Client;
 import fr.adaming.service.IClientService;
 
@@ -53,33 +52,33 @@ public class ClientManagedBean {
 
 // Les méthodes
 	public String suscribe() {
-		this.client=clService.addClient(this.client);
-		if(this.client!=null) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'inscription a été réalisée avec succès"));
-		return "/login.xhtml";}
-		else {
+		this.client = clService.addClient(this.client);
+		if (this.client != null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("L'inscription a été réalisée avec succès"));
+			return "/login.xhtml";
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Un problème a été rencontré"));
 			return "/login.xhtml";
 		}
 	}
+
 	public String login() {
-		System.out.println(client.getMail());
-		System.out.println(client.getPassword());
-		try {
-			Client clOut = clService.isExist(this.client);
+
+		Client clOut = clService.isExist(this.client);
+
+		if (clOut != null) {
 
 			// Le mettre dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", clOut);
 
-			// Mettre la liste des catégories et des produits dans la session
+			// Mettre la liste des commandes du client deans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Commande",
 					clOut.getpCommandes());
 
-			// Acceptation du logIn (boolean true)
-			// Utilisation de la méthode de redirection
-			logInCl = true;
-			return "/secured/espace.xhtml?faces-redirect=true";
-		} catch (Exception ex) {
+			return "/home.xhtml";
+
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Mail ou MdP Invalide"));
 			return "/login.xhtml";
 		}

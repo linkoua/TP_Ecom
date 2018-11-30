@@ -22,7 +22,8 @@
 					url="recherche.xhtml" />
 				<p:menuitem value="Panier" icon="fa fa-shopping-cart" />
 
-				<p:submenu label="Client" icon="fa fa-user">
+				<p:submenu rendered="#{not empty sessionScope.clSession}"
+					label="Client" icon="fa fa-user">
 					<p:menuitem value="Mon compte" icon="fa fa-bank" />
 					<p:menuitem value="Se déconnecter" icon="fa fa-sign-out" />
 				</p:submenu>

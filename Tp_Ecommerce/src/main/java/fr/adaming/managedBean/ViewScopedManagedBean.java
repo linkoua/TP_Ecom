@@ -15,7 +15,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+import javax.servlet.http.HttpSession;
 
+import fr.adaming.modele.Administrateur;
 import fr.adaming.modele.Categorie;
 import fr.adaming.modele.Produit;
 import fr.adaming.service.ICategorieService;
@@ -313,12 +315,20 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTableCaNom = false;
 			indiceTableCaMotCle = false;
 
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
+
 		} else {
 
 			// Cacher tous les tableaux de résultats
 			indiceTableCaId = false;
 			indiceTableCaNom = false;
 			indiceTableCaMotCle = false;
+
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
 
 			// Message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -341,12 +351,20 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTableCaNom = true;
 			indiceTableCaMotCle = false;
 
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
+
 		} else {
 
 			// Cacher tous les tableaux de résultats
 			indiceTableCaId = false;
 			indiceTableCaNom = false;
 			indiceTableCaMotCle = false;
+
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
 
 			// Message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -369,6 +387,10 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTableCaNom = false;
 			indiceTableCaMotCle = true;
 
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
+
 			// instanciation du set
 			resultSetCa = new HashSet<Categorie>(resultListCa);
 
@@ -378,6 +400,10 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTableCaId = false;
 			indiceTableCaNom = false;
 			indiceTableCaMotCle = false;
+
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
 
 			// Message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -397,6 +423,10 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTablePrCat = false;
 			indiceTablePrMotCle = false;
 
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
+
 		} else {
 
 			// Cacher tous les tableaux de résultats
@@ -404,12 +434,49 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTablePrCat = false;
 			indiceTablePrMotCle = false;
 
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
+
 			// Message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Aucun résultat!", "Pas de produit correspondant à l'id"));
 
 			produit = new Produit();
 
+		}
+
+	}
+
+	public void searchPrByCategorie() {
+
+		categorie = caService.getById(categorie);
+
+		if (categorie.getListep().size() != 0) {
+
+			// Afficher le tableau de résultat et cacher les autres
+			indiceTablePrId = false;
+			indiceTablePrCat = true;
+			indiceTablePrMotCle = false;
+
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
+
+		} else {
+
+			// Cacher tous les tableaux de résultats
+			indiceTablePrId = false;
+			indiceTablePrCat = false;
+			indiceTablePrMotCle = false;
+
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
+
+			// Message d'erreur
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Aucun résultat!", "Pas de produit correspondant à cette catégorie"));
 		}
 
 	}
@@ -427,6 +494,10 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTablePrCat = false;
 			indiceTablePrMotCle = true;
 
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
+
 			// instanciation du set
 			resultSetPr = new HashSet<Produit>(resultListPr);
 
@@ -436,6 +507,10 @@ public class ViewScopedManagedBean implements Serializable {
 			indiceTablePrId = false;
 			indiceTablePrCat = false;
 			indiceTablePrMotCle = false;
+
+			indiceTableCaId = false;
+			indiceTableCaNom = false;
+			indiceTableCaMotCle = false;
 
 			// Message d'erreur
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
