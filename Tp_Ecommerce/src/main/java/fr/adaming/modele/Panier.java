@@ -1,6 +1,7 @@
 package fr.adaming.modele;
 
 import java.util.List;
+import java.util.Set;
 public class Panier {
 	// Attribut
 	private int id;

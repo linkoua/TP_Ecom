@@ -3,7 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
 
 <h:head>
 	<title>Liste des produits</title>
@@ -12,39 +14,39 @@
 
 	<ui:composition template="templates/layout.xhtml">
 		<ui:define name="Content">
-		
-		<h:form id="form">
+
+			<h:form id="form">
 				<p:growl id="messages" />
-				   <p:dataScroller value="#{paMB.listlc}" var="lc">
-						<f:facet name="header">
+				<p:dataScroller value="#{paMB.listlc}" var="lc">
+					<f:facet name="header">
            				Mon panier
         			</f:facet>
 
-						<h:panelGrid columns="3" style="width:100%"
-							columnClasses="logo,detail,logo">
-							<h:graphicImage value="#{pr.image}"
-								style="width: 100px; heigth: 100px" />
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,logo">
+						<h:graphicImage value="#{pr.image}"
+							style="width: 100px; heigth: 100px" />
 
-							<p:outputPanel>
-								<h:panelGrid columns="2" cellpadding="5">
-									<h:outputText value="Nom du produit:" />
-									<h:outputText value="#{lc.produit.designation}"
-										style="font-weight: bold" />
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Nom du produit:" />
+								<h:outputText value="#{lc.produit.designation}"
+									style="font-weight: bold" />
 
-									<h:outputText value="Quantité:" />
-									<h:outputText value="#{lc.quantite}"
-										style="font-weight: bold" />
+								<h:outputText value="Quantité:" />
+								 <p:spinner id="minMax" value="#{lc.quantite}" min="0" max="#{lc.produit.quantite}">
+                <p:ajax listener="#{paMB.calculPrice}" process="@this"  update="outprice"/>
+            </p:spinner>
+								<h:outputText value="Prix:" />
+								<h:outputText id="outprice" value="#{lc.prix}" style="font-weight: bold" />
 
-									<h:outputText value="Prix:" />
-									<h:outputText value="#{lc.prix}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dataScroller>
 
-								</h:panelGrid>
-							</p:outputPanel>
-						</h:panelGrid>
-					</p:dataScroller>
-	
-					</h:form>
-					</ui:define>
-					</ui:composition>
-					</h:body>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>
