@@ -6,8 +6,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
+import fr.adaming.modele.Categorie;
 import fr.adaming.modele.Client;
+import fr.adaming.modele.Commande;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name = "clMB")
@@ -24,14 +27,18 @@ public class ClientManagedBean {
 	private Client client;
 	private boolean logInCl;
 
+	private boolean checkbox;
+	private String ancienMdp;
+	private String nouveauMdp;
+	private String confirmMdp;
+
+	private Commande commande;
+
+	HttpSession maSession;
+
 	public ClientManagedBean() {
 		super();
 
-	}
-
-	@PostConstruct
-	public void init() {
-		this.client = new Client();
 	}
 
 	public Client getClient() {
@@ -50,7 +57,52 @@ public class ClientManagedBean {
 		this.logInCl = logInCl;
 	}
 
-// Les méthodes
+	public boolean isCheckbox() {
+		return checkbox;
+	}
+
+	public void setCheckbox(boolean checkbox) {
+		this.checkbox = checkbox;
+	}
+
+	public String getAncienMdp() {
+		return ancienMdp;
+	}
+
+	public void setAncienMdp(String ancienMdp) {
+		this.ancienMdp = ancienMdp;
+	}
+
+	public String getNouveauMdp() {
+		return nouveauMdp;
+	}
+
+	public void setNouveauMdp(String nouveauMdp) {
+		this.nouveauMdp = nouveauMdp;
+	}
+
+	public String getConfirmMdp() {
+		return confirmMdp;
+	}
+
+	public void setConfirmMdp(String confirmMdp) {
+		this.confirmMdp = confirmMdp;
+	}
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
+	// Les méthodes
+	@PostConstruct
+	public void init() {
+		this.client = new Client();
+	}
+
 	public String suscribe() {
 		this.client = clService.addClient(this.client);
 		if (this.client != null) {
@@ -87,5 +139,73 @@ public class ClientManagedBean {
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/home.xhtml";
+	}
+
+	public String lienUpdate() {
+		return "updateClient";
+	}
+
+	public String updateClient() {
+
+		maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		Client clientSession = (Client) maSession.getAttribute("clSession");
+
+		if (checkbox == true) {
+
+			// Check mot de passe
+			if (!ancienMdp.equals(clientSession.getPassword())) {
+
+				// Message d'erreur
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Echec!", "Le mot de passe actuel ne correspond pas."));
+
+				ancienMdp = "";
+				nouveauMdp = "";
+				confirmMdp = "";
+
+				return null;
+
+			} else if (!nouveauMdp.equals(confirmMdp)) {
+
+				// Message d'erreur
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Echec!", "Le mot de passe de confirmation ne correspond pas au nouveau mot de passe."));
+
+				ancienMdp = "";
+				nouveauMdp = "";
+				confirmMdp = "";
+
+				return null;
+
+			} else {
+				client.setPassword(nouveauMdp);
+			}
+
+		} else {
+
+			client.setPassword(clientSession.getPassword());
+		}
+
+		Client clOut = clService.modifyClient(client);
+
+		if (clOut != null) {
+
+			// Mettre à jour la liste des categories
+			maSession.setAttribute("clSession", clOut);
+
+			// Message d'erreur
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Réussi!", "Vos informations ont bien été modifié."));
+
+			return "compteClient";
+
+		} else {
+
+			// Message d'erreur
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec!",
+					"Une erreur est survenue dans la modification de vos informations personnelles."));
+		}
+
+		return null;
 	}
 }

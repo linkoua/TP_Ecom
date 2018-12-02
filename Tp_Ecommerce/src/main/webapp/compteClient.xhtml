@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+<title>Mon Compte Client</title>
+</head>
+<body>
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="Content">
+
+			<h:form id="form">
+				<p:growl id="messages" />
+
+				<div class="contentdiv">
+					<h1 style="color: white; text-align: center">Mes informations
+						personnelles:</h1>
+					<h:panelGrid columns="2" style="margin:auto; width:400px">
+						<h:panelGrid columns="1" style="margin:auto; width:200px">
+							<h:outputText style="font-weight:bold" value="Nom:" />
+							<h:outputText value="#{sessionScope.clSession.nom}" />
+							<br />
+							<h:outputText style="font-weight:bold" value="Téléphone:" />
+							<h:outputText value="#{sessionScope.clSession.tel}" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="margin:auto; width:200px">
+							<h:outputText style="font-weight:bold" value="Adresse:" />
+							<h:outputText value="#{sessionScope.clSession.adresse}" />
+							<br />
+							<h:outputText style="font-weight:bold" value="Mail:" />
+							<h:outputText value="#{sessionScope.clSession.mail}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<p:spacer width="20" height="30" />
+					<h:panelGrid columns="1"
+						style="margin-left:auto; margin-right:10%; width:200px">
+						<p:commandButton styleClass="buttonUp"
+							value="Modifier vos informations" action="#{clMB.lienUpdate}"
+							ajax="false">
+							<f:setPropertyActionListener value="#{sessionScope.clSession}"
+								target="#{clMB.client}" />
+						</p:commandButton>
+					</h:panelGrid>
+				</div>
+
+				<p:dataScroller value="#{clMB.commande.listelcommande}" var="lCo"
+					chunkSize="10" rendered="#{not empty clMB.commande}">
+					<f:facet name="header">
+            			Commande N°: CO_00#{clMB.commande.id}
+        			</f:facet>
+
+					<f:facet name="loader">
+						<p:commandButton type="button" value="Plus"
+							icon="fa fa-chevron-circle-down" />
+					</f:facet>
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail,logo">
+						<h:graphicImage value="#{lCo.produit.image}"
+							style="width: 100px; heigth: 100px" />
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Référence:" />
+								<h:outputText value="#REF.0000#{lCo.produit.id}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Nom:" />
+								<h:outputText value="#{lCo.produit.designation}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Description:" />
+								<h:outputText value="#{lCo.produit.descre}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Categorie:" />
+								<h:outputText value="#{lCo.produit.categorie.nom}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Prix unitaire:" />
+								<h:outputText value="#{pr.prix}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Quantité: " />
+								<h:outputText value="#{lCo.quantite}" style="font-weight: bold" />
+
+								<h:outputText value="Prix: " />
+								<h:outputText value="#{lCo.prix}" style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dataScroller>
+			</h:form>
+		</ui:define>
+
+		<ui:define name="side">
+			<h:form>
+				<p:dataList value="#{sessionScope.Commande}" var="co"
+					type="definition">
+					<f:facet name="header">
+            			Vos commandes
+        			</f:facet>
+
+					<p:commandLink value="Commande N°: CO_00#{co.id}" update="form">
+						<f:setPropertyActionListener value="#{co}"
+							target="#{clMB.commande}" />
+					</p:commandLink>
+
+					<f:facet name="description">
+						<h:outputText value="Passé le: #{co.date}" />
+					</f:facet>
+				</p:dataList>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

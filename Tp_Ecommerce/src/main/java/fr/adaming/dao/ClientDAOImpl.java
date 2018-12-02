@@ -33,7 +33,7 @@ public class ClientDAOImpl implements IClientDAO {
 	public Client modifyClient(Client c) {
 		Session s = sf.getCurrentSession();
 
-		Client clOut = (Client) s.get(Client.class, c.getId());
+		Client clOut = (Client) s.get(Client.class, (int) c.getId());
 		clOut.setNom(c.getNom());
 		clOut.setMail(c.getMail());
 		clOut.setAdresse(c.getAdresse());

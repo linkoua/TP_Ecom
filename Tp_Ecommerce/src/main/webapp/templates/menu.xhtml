@@ -17,20 +17,28 @@
 		<h:form>
 
 			<p:menu toggleable="true">
-				<p:menuitem value="Connexion" icon="fa fa-sign-in" url="login.xhtml" />
+				<p:menuitem value="Connexion" icon="fa fa-sign-in" url="login.xhtml"
+					rendered="#{empty sessionScope.clSession}" />
 				<p:menuitem value="Recherche" icon="fa fa-search"
 					url="recherche.xhtml" />
-				<p:menuitem value="Panier" icon="fa fa-shopping-cart" url="panier.xhtml" />
+				<p:menuitem value="Panier" icon="fa fa-shopping-cart"
+					url="panier.xhtml" />
 
 				<p:submenu rendered="#{not empty sessionScope.clSession}"
 					label="Client" icon="fa fa-user">
-					<p:menuitem value="Mon compte" icon="fa fa-bank" />
-					<p:menuitem value="Se déconnecter" icon="fa fa-sign-out" />
+					<p:menuitem value="Mon compte" icon="fa fa-bank"
+						url="compteClient.xhtml" />
+					<p:menuitem value="Se déconnecter" icon="fa fa-sign-out"
+						action="#{clMB.logout}" ajax="false" />
 				</p:submenu>
 
 				<p:submenu label="Catégories" icon="fa fa-steam-square">
 					<c:forEach var="ca" items="#{caMB.listCa}">
-						<p:menuitem value="#{ca.nom}" />
+						<p:menuitem value="#{ca.nom}" action="#{caMB.detailCategorie}"
+							ajax="false">
+							<f:setPropertyActionListener value="#{ca}"
+								target="#{caMB.categorie}" />
+						</p:menuitem>
 					</c:forEach>
 					<p:separator />
 					<p:menuitem value="Afficher toutes les catégories"

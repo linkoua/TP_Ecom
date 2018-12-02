@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+<title>Détail Catégorie</title>
+</head>
+<body>
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="Content">
+
+			<h:form id="form">
+				<div class="contentdiv">
+					<h1 style="color: white; text-align: center">Détail de la
+						catégorie:</h1>
+					<h:panelGrid columns="2" style="margin:auto; width:400px">
+						<h:graphicImage value="#{caMB.categorie.image}" />
+						<h:panelGrid columns="1" style="margin:auto; width:300px">
+							<h:outputText style="font-weight:bold" value="Nom:" />
+							<h:outputText value="#{caMB.categorie.nom}" />
+							<br />
+							<h:outputText style="font-weight:bold" value="Description:" />
+							<h:outputText value="#{caMB.categorie.descre}" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</div>
+
+				<p:growl id="messages" />
+				<p:dataGrid var="pr" value="#{caMB.categorie.listep}" columns="3"
+					paginator="true" rowsPerPageTemplate="6,12,18"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+					style="width:100%; margin: auto; margin-top:20px;">
+
+					<f:facet name="header" style="color:white;">
+           				Liste des Produits
+        			</f:facet>
+
+					<p:panel header="#REF.000#{pr.id}">
+						<h:panelGrid columns="1" style="width:100%; text-align:center;">
+							<h:graphicImage value="#{pr.image}" />
+							<h:outputText value="#{pr.designation}" />
+							<h:panelGrid columns="2" style="width:100%">
+								<p:commandButton icon="btnCart" styleClass="iconOnlyButton"
+									update=":form:addQuantite" oncomplete="PF('addPanier').show()">
+									<f:setPropertyActionListener value="#{pr}"
+										target="#{paMB.lignecommande.produit}" />
+								</p:commandButton>
+								<p:commandButton icon="btnView" styleClass="iconOnlyButton"
+									update=":form:prDetail" oncomplete="PF('prDialog').show()">
+									<f:setPropertyActionListener value="#{pr}"
+										target="#{prMB.produitselected}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:panel>
+				</p:dataGrid>
+
+
+				<p:dialog header="Produit Info" widgetVar="prDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="prDetail" style="text-align:center;">
+						<p:panelGrid columns="2"
+							rendered="#{not empty prMB.produitselected}"
+							columnClasses="label,value">
+							<f:facet name="header">
+								<h:graphicImage value="#{prMB.produitselected.image}" />
+							</f:facet>
+
+							<h:outputText value="Référence:" />
+							<h:outputText value="#{prMB.produitselected.id}" />
+
+							<h:outputText value="Nom" />
+							<h:outputText value="#{prMB.produitselected.designation}" />
+
+							<h:outputText value="Description:" />
+							<h:outputText value="#{prMB.produitselected.descre}" />
+
+							<h:outputText value="Prix" />
+							<h:outputText value="#{prMB.produitselected.prix}" />
+							<h:outputText value="Quantite" />
+							<h:outputText value="#{prMB.produitselected.quantite}" />
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog id="AjouterPanier" header="Quantité" widgetVar="addPanier"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="addQuantite">
+						<p:outputPanel style="text-align:left;">
+							<p:outputLabel value="Ajout du produit :" />
+							<p:outputLabel style="font-weight: bold"
+								value=" #{paMB.lignecommande.produit.designation}" />
+							<br />
+							<br />
+							<p:outputLabel value="Quantité: " />
+							<br />
+							<p:outputLabel value="Veuillez rentrez la quantité désirée" />
+						</p:outputPanel>
+						<p:inputText placeholder="Entrer la quantité"
+							value="#{paMB.lignecommande.quantite}" />
+						<p:outputPanel style="text-align:right;">
+							<br />
+							<p:outputLabel value="Confirmer la quantité? " />
+							<p:spacer width="50" height="20" />
+							<p:commandButton value="Oui" styleClass="ui-confirmdialog-yes"
+								icon="fa fa-check" action="#{paMB.addPanier}" update="messages"
+								ajax="false">
+							</p:commandButton>
+							<p:commandButton value="Annuler" styleClass="ui-confirmdialog-no"
+								icon="fa fa-times" ajax="false" />
+						</p:outputPanel>
+					</p:outputPanel>
+					<p:ajax event="close" />
+				</p:dialog>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

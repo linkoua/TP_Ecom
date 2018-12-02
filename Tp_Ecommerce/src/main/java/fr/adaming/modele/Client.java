@@ -1,9 +1,10 @@
 package fr.adaming.modele;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,8 +17,8 @@ public class Client extends Utilisateur {
 	private String tel;
 
 	// Transformation de l'association UML
-	@OneToMany(mappedBy = "pClient", cascade = CascadeType.ALL)
-	private List<Commande> pCommandes;
+	@OneToMany(mappedBy = "pClient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Commande> pCommandes;
 
 	// Builder
 	public Client() {
@@ -25,13 +26,13 @@ public class Client extends Utilisateur {
 	}
 
 	public Client(String nom, String mail, String password, String adresse, String tel) {
-		super(nom, mail,password);
+		super(nom, mail, password);
 		this.adresse = adresse;
 		this.tel = tel;
 	}
 
-	public Client(int id, String nom, String mail,String password, String adresse, String tel) {
-		super(id, nom, mail,password);
+	public Client(int id, String nom, String mail, String password, String adresse, String tel) {
+		super(id, nom, mail, password);
 		this.adresse = adresse;
 		this.tel = tel;
 	}
@@ -53,11 +54,11 @@ public class Client extends Utilisateur {
 		this.tel = tel;
 	}
 
-	public List<Commande> getpCommandes() {
+	public Set<Commande> getpCommandes() {
 		return pCommandes;
 	}
 
-	public void setpCommandes(List<Commande> pCommandes) {
+	public void setpCommandes(Set<Commande> pCommandes) {
 		this.pCommandes = pCommandes;
 	}
 

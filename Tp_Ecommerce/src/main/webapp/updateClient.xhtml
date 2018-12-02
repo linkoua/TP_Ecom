@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Modification de vos informations</title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="Content">
+
+			<h:form>
+				<div class="contentdiv">
+					<p:growl id="messages" showDetail="true" />
+					<h1 style="color: white; text-align: center">Modification de
+						mes informations personnelles:</h1>
+					<h:panelGrid columns="1" style="margin:auto; width:400px">
+						<h:outputText value="Nom: *" />
+						<p:inputText value="#{clMB.client.nom}" required="true" />
+						<h:outputText value="Adresse: *" />
+						<p:inputText value="#{clMB.client.adresse}" required="true" />
+						<h:outputText value="Téléphone: " />
+						<p:inputText value="#{clMB.client.tel}" />
+						<h:outputText value="Mail: *" />
+						<p:inputText value="#{clMB.client.mail}" required="true" />
+						<h:outputText value="Modifier mot de passe" />
+						<p:selectBooleanButton value="#{clMB.checkbox}" onLabel="Oui"
+							offLabel="Non" onIcon="fa fa-check" offIcon="fa fa-times"
+							style="width:100px">
+							<f:ajax event="change" render="modifMdp" />
+						</p:selectBooleanButton>
+						<h:panelGrid id="modifMdp" columns="1"
+							style="margin:auto; width:400px">
+							<h:outputText value="Ancien mot de passe: "
+								rendered="#{clMB.checkbox}" />
+							<p:inputText value="#{clMB.ancienMdp}" required="true"
+								rendered="#{clMB.checkbox}" />
+							<p:separator />
+							<h:outputText value="Nouveau mot de passe: "
+								rendered="#{clMB.checkbox}" />
+							<p:inputText value="#{clMB.nouveauMdp}" required="true"
+								rendered="#{clMB.checkbox}" />
+							<h:outputText value="Confirmer mot de passe: "
+								rendered="#{clMB.checkbox}" />
+							<p:inputText value="#{clMB.confirmMdp}" required="true"
+								rendered="#{clMB.checkbox}" />
+						</h:panelGrid>
+						<p:commandButton styleClass="buttonUp" value="Modifier"
+							ajax="false" action="#{clMB.updateClient}" />
+					</h:panelGrid>
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

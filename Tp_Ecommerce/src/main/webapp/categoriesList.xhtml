@@ -43,7 +43,8 @@
 									target="#{caMB.categorie}" />
 							</p:commandButton>
 							<p:commandButton title="Afficher produits de la catégorie"
-								icon="btnProduct" styleClass="iconOnlyButton" ajax="false">
+								icon="btnProduct" styleClass="iconOnlyButton"
+								action="#{caMB.detailCategorie}" ajax="false">
 								<f:setPropertyActionListener value="#{ca}"
 									target="#{caMB.categorie}" />
 							</p:commandButton>
@@ -56,22 +57,22 @@
 					widgetVar="caDialog" modal="true" showEffect="fade"
 					hideEffect="fade" resizable="false">
 					<p:outputPanel id="caDetail" style="text-align:center;">
-						<p:panelGrid columns="1" cellspacing="0px" cellpadding="0px">
-							<h:graphicImage value="#{caMB.categorie.image}" />
-							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
-								style="width:100%;" columnClasses="label,value">
-								<h:outputText value="Référence:" />
-								<h:outputText value="#REF.8000#{caMB.categorie.id}" />
-								<h:outputText value="Nom" />
-								<h:outputText value="#{caMB.categorie.nom}" />
-							</p:panelGrid>
+						<p:panelGrid columns="2" columnClasses="label,value">
+							<f:facet name="header">
+								<h:graphicImage value="#{caMB.categorie.image}" />
+							</f:facet>
+
+							<h:outputText value="Référence:" />
+							<h:outputText value="#REF.8000#{caMB.categorie.id}" />
+
+							<h:outputText value="Nom" />
+							<h:outputText value="#{caMB.categorie.nom}" />
+
 							<h:outputText value="Description:" />
 							<h:outputText value="#{caMB.categorie.descre}" />
-							<p:panelGrid columns="2" cellspacing="0px" cellpadding="0px"
-								style="width:100%;" columnClasses="label,value">
-								<h:outputText value="Nombre de produit" />
-								<h:outputText value="#{caMB.categorie.listep.size()}" />
-							</p:panelGrid>
+
+							<h:outputText value="Nombre de produit" />
+							<h:outputText value="#{caMB.categorie.listep.size()}" />
 						</p:panelGrid>
 					</p:outputPanel>
 				</p:dialog>

@@ -20,18 +20,24 @@
 			</ui:insert>
 		</div>
 		<div class="middle">
-		<div class="menu">
-			<ui:insert name="menu">
-				<!-- inclure concretement header avec include -->
-				<ui:include src="/templates/menu.xhtml"></ui:include>
-			</ui:insert>
-		</div>
-		<div class="content">
-			<ui:insert name="Content">
-				<!-- inclure concretement header avec include -->
-				<ui:include src="/templates/corps.xhtml"></ui:include>
-			</ui:insert>
-		</div>
+			<div class="menu">
+				<ui:insert name="menu">
+					<!-- inclure concretement header avec include -->
+					<ui:include src="/templates/menu.xhtml"></ui:include>
+				</ui:insert>
+			</div>
+			<div class="content">
+				<ui:insert name="Content">
+					<!-- inclure concretement header avec include -->
+					<ui:include src="/templates/corps.xhtml"></ui:include>
+				</ui:insert>
+			</div>
+			<div class="side">
+				<ui:insert name="side">
+					<!-- inclure concretement header avec include -->
+					<ui:include src="/templates/side.xhtml"></ui:include>
+				</ui:insert>
+			</div>
 		</div>
 	</div>
 	<div class="footer">

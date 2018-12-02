@@ -33,7 +33,7 @@ public class Commande {
 	@ManyToOne
 	@JoinColumn(name = "ut_id", referencedColumnName = "id_ut")
 	private Client pClient;
-	
+
 	@OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<LigneCommande> listelcommande;
 

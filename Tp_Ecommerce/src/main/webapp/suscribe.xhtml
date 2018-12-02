@@ -12,25 +12,27 @@
 
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="Content">
-<div class="contentdiv">
-	<h:form enctype="multipart/form-data">
-    <p:growl id="messages" showDetail="true" />
-	<h1 style="color: white; text-align: center">Formulaire d'inscription:</h1>
-    <h:panelGrid columns="1"  style="margin:auto; width:400px">
-    <h:outputText value="Nom: *"/>
-   	<p:inputText value="#{clMB.client.nom}" required="true" />
-   	<h:outputText value="Password: *"/>
-   	<p:inputText value="#{clMB.client.password}" required="true" />
-	<h:outputText value="Adresse: *"/>
-   	<p:inputText value="#{clMB.client.adresse}" required="true" />
-  	<h:outputText value="Mail: *"/>
-   	<p:inputText value="#{clMB.client.mail}" required="true" />
-	<h:outputText value="Téléphone: "/>
-   	<p:inputText value="#{clMB.client.tel}" />
-   	 <p:commandButton styleClass="buttonUp" value="Inscription" ajax="false" action="#{clMB.suscribe}" />
-    </h:panelGrid>
-</h:form>
-</div>
+			<div class="contentdiv">
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+					<h1 style="color: white; text-align: center">Formulaire
+						d'inscription:</h1>
+					<h:panelGrid columns="1" style="margin:auto; width:400px">
+						<h:outputText value="Nom: *" />
+						<p:inputText value="#{clMB.client.nom}" required="true" />
+						<h:outputText value="Adresse: *" />
+						<p:inputText value="#{clMB.client.adresse}" required="true" />
+						<h:outputText value="Téléphone: " />
+						<p:inputText value="#{clMB.client.tel}" />
+						<h:outputText value="Mail: *" />
+						<p:inputText value="#{clMB.client.mail}" required="true" />
+						<h:outputText value="Password: *" />
+						<p:inputText value="#{clMB.client.password}" required="true" />
+						<p:commandButton styleClass="buttonUp" value="Inscription"
+							ajax="false" action="#{clMB.suscribe}" />
+					</h:panelGrid>
+				</h:form>
+			</div>
 		</ui:define>
 
 	</ui:composition>
